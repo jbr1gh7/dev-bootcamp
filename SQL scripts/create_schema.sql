@@ -1,1 +1,2 @@
-CREATE SCHEMA StudentEnrolment
+/*DROP SCHEMA StudentEnrolment;*/
+CREATE SCHEMA StudentEnrolment;
