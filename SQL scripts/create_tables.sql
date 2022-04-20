@@ -20,7 +20,6 @@ CREATE TABLE IF NOT EXISTS Subject (
 );
 
 CREATE TABLE IF NOT EXISTS CourseSubject (
-	Id VARCHAR(36) NOT NULL,
     CourseId VARCHAR(36),
     SubjectId VARCHAR(36),
     PRIMARY KEY (Id),
@@ -29,7 +28,6 @@ CREATE TABLE IF NOT EXISTS CourseSubject (
 );
 
 CREATE TABLE IF NOT EXISTS CourseMembership (
-	Id VARCHAR(36) NOT NULL,
     CourseId VARCHAR(36),
     StudentId VARCHAR(36),
     PRIMARY KEY (Id),
