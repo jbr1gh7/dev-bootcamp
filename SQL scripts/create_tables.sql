@@ -1,12 +1,8 @@
 CREATE TABLE IF NOT EXISTS Course (
 	Id VARCHAR(36) NOT NULL,
-	CourseSubjectsId VARCHAR(36),
-	CourseMembershipId VARCHAR(36),
     Name VARCHAR(30),
     Description TEXT,
-    PRIMARY KEY (Id),
-    FOREIGN KEY (CourseSubjectsId) REFERENCES CourseSubjects(Id),
-    FOREIGN KEY (CourseMembershipId)  REFERENCES CourseMembership(Id)
+    PRIMARY KEY (Id)
 );
 
 CREATE TABLE IF NOT EXISTS Student (
@@ -25,10 +21,14 @@ CREATE TABLE IF NOT EXISTS Subject (
 
 CREATE TABLE IF NOT EXISTS CourseSubject (
 	Id VARCHAR(36) NOT NULL,
-    PRIMARY KEY (Id)
+    PRIMARY KEY (Id),
+    FOREIGN KEY (CourseID) REFERENCES Course(Id),
+    FOREIGN KEY (SubjectId) REFERENCES Subject(Id)
 );
 
 CREATE TABLE IF NOT EXISTS CourseMembership (
 	Id VARCHAR(36) NOT NULL,
-    PRIMARY KEY (Id)
+    PRIMARY KEY (Id),
+	FOREIGN KEY (CourseID) REFERENCES Course(Id),
+    FOREIGN KEY (StudentId) REFERENCES Student(Id)
 );
