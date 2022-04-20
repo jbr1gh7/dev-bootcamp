@@ -22,7 +22,6 @@ CREATE TABLE IF NOT EXISTS Subject (
 CREATE TABLE IF NOT EXISTS CourseSubject (
     CourseId VARCHAR(36),
     SubjectId VARCHAR(36),
-    PRIMARY KEY (Id),
     FOREIGN KEY (CourseID) REFERENCES Course(Id),
     FOREIGN KEY (SubjectId) REFERENCES Subject(Id)
 );
@@ -30,7 +29,6 @@ CREATE TABLE IF NOT EXISTS CourseSubject (
 CREATE TABLE IF NOT EXISTS CourseMembership (
     CourseId VARCHAR(36),
     StudentId VARCHAR(36),
-    PRIMARY KEY (Id),
 	FOREIGN KEY (CourseID) REFERENCES Course(Id),
     FOREIGN KEY (StudentId) REFERENCES Student(Id)
 );
