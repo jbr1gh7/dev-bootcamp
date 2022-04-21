@@ -5,4 +5,4 @@ JOIN Course ON (Course.Id = CourseMembership.CourseId)
 JOIN CourseSubject ON (CourseSubject.CourseId = Course.Id)
 JOIN Subject ON (CourseSubject.SubjectId = Subject.Id)
 GROUP BY CourseSubject.CourseId, CourseMembership.StudentId
-HAVING COUNT(*) > 3
+HAVING COUNT(*) > 3;

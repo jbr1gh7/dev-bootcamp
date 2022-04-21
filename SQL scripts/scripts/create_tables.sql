@@ -32,3 +32,4 @@ CREATE TABLE IF NOT EXISTS CourseMembership (
 	FOREIGN KEY (CourseID) REFERENCES Course(Id),
     FOREIGN KEY (StudentId) REFERENCES Student(Id)
 );
+
