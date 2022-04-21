@@ -1,2 +1,2 @@
 ALTER TABLE Course
-ADD IsPartFunded BOOLEAN
+ADD IsPartFunded BOOLEAN NOT NULL DEFAULT false;
