@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace StudentEnrolment.Models
 {
-    class Subject
+    class Subject : Curriculum
     {
-        string Id { get; set; }
-        string Name { get; set; }
-        string Description { get; set; }
+
     }
 }
