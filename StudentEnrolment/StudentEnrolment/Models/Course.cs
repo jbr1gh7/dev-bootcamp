@@ -11,5 +11,9 @@ namespace StudentEnrolment.Models
         string Id { get; set; }
         string Name { get; set; }
         string Description { get; set; }
+        public List<Subject> CourseSubject { get; set; }
+        public List<Student> CourseMembership { get; set; }
     }
 }
+}
+
