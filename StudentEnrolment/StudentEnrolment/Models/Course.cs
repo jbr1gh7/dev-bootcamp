@@ -8,6 +8,7 @@ namespace StudentEnrolment.Models
 {
     class Course : Curriculum
     {
+        public bool IsPartFunded { get; set; }
         public List<Subject> CourseSubject { get; set; }
         public List<Student> CourseMembership { get; set; }
     }
