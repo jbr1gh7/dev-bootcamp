@@ -1,0 +1,20 @@
+﻿[
+  {
+    "Id": "403de5ca-d434-43f8-9736-83bb5703270b",
+    "Name": "Engineering",
+    "Description": "Engineering is the use of scientific principles to design and build machines, structures, and other items, including bridges, tunnels, roads, vehicles, and buildings. The discipline of engineering encompasses a broad range of more specialized fields of engineering.",
+    "IsPartFunded": true
+  },
+  {
+    "Id": "a0b28986-5acc-4646-a0d2-7056d74d541d",
+    "Name": "Chemistry",
+    "Description": "Chemistry is the scientific study of the properties and behavior of matter. It is a natural science that covers the elements that make up matter to the compounds composed of atoms, molecules and ions: their composition, structure, properties, behavior and the changes they undergo during a reaction with other substances.",
+    "IsPartFunded": true
+  },
+  {
+    "Id": "33e965e9-54c8-44c4-888c-18c4f1ea1203",
+    "Name": "Law",
+    "Description": "Law is a system of rules created and enforced through social or governmental institutions to regulate behavior, with its precise definition a matter of longstanding debate. It has been variously described as a science and the art of justice.",
+    "IsPartFunded": false
+  }
+]
