@@ -7,22 +7,21 @@ namespace StudentEnrolment
 {
     class Program
     {
+        static public List<T> DeserializeToList<T>(string filePath)
+        {
+            var file = System.IO.File.ReadAllText(filePath);
+
+            return JsonSerializer.Deserialize<List<T>>(file, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+        }
+
         static void Main(string[] args)
         {
-            List<Course> courses = JsonSerializer.Deserialize<List<Course>>(System.IO.File.ReadAllText("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/course.json"), new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-            List<Student> students = JsonSerializer.Deserialize<List<Student>>(System.IO.File.ReadAllText("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/student.json"), new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-
-            List<Subject> subjects = JsonSerializer.Deserialize<List<Subject>>(System.IO.File.ReadAllText("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/subject.json"), new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
+            List<Course> courses = DeserializeToList<Course>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/course.json");
+            List<Student> students = DeserializeToList<Student>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/student.json");
+            List<Subject> subjects = DeserializeToList<Subject>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/subject.json");
 
             courses[0].CourseSubject = subjects.GetRange(0, 4);
             courses[1].CourseSubject = subjects.GetRange(4, 3);
@@ -32,10 +31,6 @@ namespace StudentEnrolment
             courses[1].CourseMembership = students.GetRange(5, 5);
             courses[2].CourseMembership = students.GetRange(10, 5);
 
-            for (int i = 0; i < courses[2].CourseMembership.Count; i++)
-            {
-                Console.WriteLine(courses[2].CourseMembership[i].FirstName);
-            }
         }
     }
 }
