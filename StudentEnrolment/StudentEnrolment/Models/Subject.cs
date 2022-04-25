@@ -8,6 +8,11 @@ namespace StudentEnrolment.Models
 {
     class Subject : Curriculum
     {
-
+        public Subject(string id, string name, string description)
+        {
+            this.Id = id;
+            this.Name = name;
+            this.Description = description;
+        }
     }
 }
