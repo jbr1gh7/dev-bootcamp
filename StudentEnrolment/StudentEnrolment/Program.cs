@@ -45,12 +45,14 @@ namespace StudentEnrolment
 
         static void ListStudents(List<Student> students) 
         {
+            Console.WriteLine("\n");
             for (int i = 0; i < students.Count; i++) { Console.WriteLine(i.ToString() + ". " + students[i].FirstName + " " + students[i].LastName); }
         }
 
         static void ListCurriculum<T>(List<T> curricula)
         where T : Curriculum
         {
+            Console.WriteLine("\n");
             for (int i = 0; i < curricula.Count; i++) { Console.WriteLine(i.ToString() + ". " + curricula[i].Name + ":\n" + curricula[i].Description + "\n"); }
         }
 
@@ -63,14 +65,18 @@ namespace StudentEnrolment
         static List<T> MakeAssocFromInput<T>(string message, dynamic data, bool isSubject)
         {
             bool isValid = false;
+            List<T> referenceList;
             List<T> assocList = new List<T>();
 
-            if (isSubject) { 
-                ListCurriculum(data.Subjects); 
+            if (isSubject)
+            {
+                referenceList = data.Subjects;
+                ListCurriculum(data.Subjects);
             }
-            else 
-            { 
-                ListStudents(data.Students); 
+            else
+            {
+                referenceList = data.Students;
+                ListStudents(data.Students);
             }
 
             while (!isValid)
@@ -91,18 +97,8 @@ namespace StudentEnrolment
 
                     for (int i = 0; i < choiceList.Length; i++)
                     {
-                        Console.WriteLine("Replaced length: " + choiceList[i].Length);
-
                         int index = Int32.Parse(choiceList[i]);
-
-                        if (isSubject)
-                        {
-                            assocList.Add(data.Subjects[index]);
-                        }
-                        else
-                        {
-                            assocList.Add(data.Students[index]);
-                        }
+                        assocList.Add(referenceList[index]);
                     }
                 }
                 else
@@ -156,6 +152,9 @@ namespace StudentEnrolment
                             Console.WriteLine(courseSubject[i].Name);
 
                         List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, false);
+
+                        for (int i = 0; i < courseMembership.Count; i++)
+                            Console.WriteLine(courseMembership[i].FirstName);
 
                         data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
                         break;
