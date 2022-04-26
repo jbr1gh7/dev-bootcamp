@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
+using System.Linq;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace StudentEnrolment
 {
@@ -60,19 +62,53 @@ namespace StudentEnrolment
 
         static List<T> MakeAssocFromInput<T>(string message, dynamic data, bool isSubject)
         {
-
-            if (isSubject) { ListCurriculum(data.Subjects); }
-            else { ListStudents(data.Students); }
-            
-            string choices = Input(message);
-            string[] choiceList = choices.Split(",");
-
+            bool isValid = false;
             List<T> assocList = new List<T>();
 
-            for (int i = 0; i < choiceList.Length; i++)
+            if (isSubject) { 
+                ListCurriculum(data.Subjects); 
+            }
+            else 
+            { 
+                ListStudents(data.Students); 
+            }
+
+            while (!isValid)
             {
-                int index = Int32.Parse(choiceList[i]);
-                //assocList.Add(reference[index]);
+                string choices = Input(message);
+                choices = new string(choices.ToCharArray()
+                        .Where(c => !Char.IsWhiteSpace(c))
+                        .ToArray());
+
+                char startChar = choices[0];
+                char endChar = choices[choices.Length - 1];
+                bool isValidChars = Regex.IsMatch(choices, @"[^0-9,\s]");
+
+                if (startChar != ',' && endChar != ',' && !isValidChars)
+                {
+                    isValid = true;
+                    string[] choiceList = choices.Split(",");
+
+                    for (int i = 0; i < choiceList.Length; i++)
+                    {
+                        Console.WriteLine("Replaced length: " + choiceList[i].Length);
+
+                        int index = Int32.Parse(choiceList[i]);
+
+                        if (isSubject)
+                        {
+                            assocList.Add(data.Subjects[index]);
+                        }
+                        else
+                        {
+                            assocList.Add(data.Students[index]);
+                        }
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Bad input, try again.");
+                }
             }
 
             return assocList;
@@ -115,6 +151,10 @@ namespace StudentEnrolment
                         bool isPartFunded = fundChoice.ToLower() == "y" ? true : false;
 
                         List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, true);
+
+                        for (int i = 0; i < courseSubject.Count; i++)
+                            Console.WriteLine(courseSubject[i].Name);
+
                         List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, false);
 
                         data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
