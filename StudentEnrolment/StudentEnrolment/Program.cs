@@ -10,7 +10,19 @@ namespace StudentEnrolment
 {
     class Program
     {
-        static object LoadDataInProgram()
+        static dynamic data;
+
+        static List<T> DeserializeToList<T>(string filePath)
+        {
+            var file = System.IO.File.ReadAllText(filePath);
+
+            return JsonSerializer.Deserialize<List<T>>(file, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+        }
+
+        static void LoadDataInProgram()
         {
             List<Course> courses = DeserializeToList<Course>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/course.json");
             List<Student> students = DeserializeToList<Student>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/student.json");
@@ -24,28 +36,16 @@ namespace StudentEnrolment
             courses[1].CourseMembership = students.GetRange(5, 5); //next 5
             courses[2].CourseMembership = students.GetRange(10, 5); //last 5
 
-            dynamic data = new ExpandoObject();
+            data = new ExpandoObject();
 
             data.Courses = courses;
             data.Students = students;
             data.Subjects = subjects;
-
-            return data;
         }
 
-        static List<T> DeserializeToList<T>(string filePath)
+        static void ListStudents() 
         {
-            var file = System.IO.File.ReadAllText(filePath);
-
-            return JsonSerializer.Deserialize<List<T>>(file, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-        }
-
-        static void ListStudents(List<Student> students) 
-        {
-            for (int i = 0; i < students.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + students[i].FirstName + " " + students[i].LastName); }
+            for (int i = 0; i < data.Students.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + data.Students[i].FirstName + " " + data.Students[i].LastName); }
         }
 
         static void ListCurriculum<T>(List<T> curricula)
@@ -79,7 +79,7 @@ namespace StudentEnrolment
                         .ToArray());
         }
 
-        static List<T> MakeAssocFromInput<T>(string message, dynamic data, bool isSubject)
+        static List<T> MakeAssocFromInput<T>(string message, bool isSubject)
         {
             bool isValid = false;
             List<T> referenceList;
@@ -93,7 +93,7 @@ namespace StudentEnrolment
             else
             {
                 referenceList = data.Students;
-                ListStudents(data.Students);
+                ListStudents();
             }
 
             while (!isValid)
@@ -134,19 +134,19 @@ namespace StudentEnrolment
             return assocList;
         }
 
-        static List<Student> deleteStudentById(string id, List<Student> students)
+        static void deleteStudentById(string id)
         {
-            for (int i = 0; i < students.Count; i++)
+            for (int i = 0; i < data.Students.Count; i++)
             {
-                if (students[i].Id == id)
+                if (data.Students[i].Id == id)
                 {
-                    students.RemoveAt(i);
-                    return students;
+                    Console.WriteLine("\n" + data.Students[i].FirstName + " " + data.Students[i].LastName + " was deleted.");
+                    data.Students.RemoveAt(i);
+                    return;
                 }
             }
 
             Console.WriteLine("Id unrecognised.");
-            return students;
         }
 
         static List<T> deleteCurriculumById<T>(string id, List<T> curricula)
@@ -156,6 +156,7 @@ namespace StudentEnrolment
             {
                 if (curricula[i].Id == id)
                 {
+                    Console.WriteLine("\n" + curricula[i].Name + " was deleted.");
                     curricula.RemoveAt(i);
                     return curricula;
                 }
@@ -165,10 +166,40 @@ namespace StudentEnrolment
             return curricula;
         }
 
+        static void removeAssocSubject(string id)
+        {
+            for (int i = 0; i < data.Courses.Count; i++)
+            {
+                for (int j = 0; j < data.Courses[i].CourseSubject.Count; j++)
+                {
+                    if (data.Courses[i].CourseSubject[j].Id == id)
+                    {
+                        Console.WriteLine(data.Courses[i].CourseSubject[j].Name + " was also removed from the " + data.Courses[i].Name + " course.");
+                        data.Courses[i].CourseSubject.RemoveAt(j);
+                    }
+                }
+            }
+        }
+
+        static void removeAssocStudent(string id)
+        {
+            for (int i = 0; i < data.Courses.Count; i++)
+            {
+                for (int j = 0; j < data.Courses[i].CourseMembership.Count; j++)
+                {
+                    if (data.Courses[i].CourseMembership[j].Id == id)
+                    {
+                        Console.WriteLine(data.Courses[i].CourseMembership[j].FirstName + " was also removed from the " + data.Courses[i].Name + " course.");
+                        data.Courses[i].CourseMembership.RemoveAt(j);
+                    }
+                }
+            }
+        }
+
         static void Main(string[] args)
         {
             bool isFinished = false;
-            dynamic data = LoadDataInProgram();
+            LoadDataInProgram();
 
             while (!isFinished) 
             {
@@ -177,7 +208,7 @@ namespace StudentEnrolment
                 switch (choice)
                 {
                     case "1":
-                        ListStudents(data.Students);
+                        ListStudents();
                         break;
                     case "2":
                         ListCurriculum(data.Courses);
@@ -217,8 +248,8 @@ namespace StudentEnrolment
                                 Console.WriteLine("Input 'y' for yes or 'n' for no.");
                         }
 
-                        List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, true);
-                        List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, false);
+                        List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", true);
+                        List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", false);
 
                         data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
                         break;
@@ -227,19 +258,21 @@ namespace StudentEnrolment
                         string subjectName = Input("Input subject name: ");
                         string subjectDescription = Input("Input subject description: ");
 
-                        data.Subjects.Add(new Subject(subjectName, subjectDescription, subjectId));
+                        data.Subjects.Add(new Subject(subjectId, subjectName, subjectDescription));
                         break;
                     case "7":
-                        string studentIdToDelete = Input("Input the Id of the student to delete");
-                        data.Students = deleteStudentById(studentIdToDelete, data.Students);
+                        string studentIdToDelete = Input("Input the ID of the student to delete");
+                        deleteStudentById(studentIdToDelete);
+                        removeAssocStudent(studentIdToDelete);
                         break;
                     case "8":
-                        string courseIdToDelete = Input("Input the Id of the student to delete");
-                        data.Students = deleteCurriculumById(courseIdToDelete, data.Courses); 
+                        string courseIdToDelete = Input("Input the ID of the course to delete");
+                        data.Courses = deleteCurriculumById(courseIdToDelete, data.Courses); 
                         break;
                     case "9":
-                        string subjectIdToDelete = Input("Input the Id of the student to delete");
-                        data.Students = deleteCurriculumById(subjectIdToDelete, data.Subjects); 
+                        string subjectIdToDelete = Input("Input the ID of the subject to delete");
+                        data.Subjects = deleteCurriculumById(subjectIdToDelete, data.Subjects);
+                        removeAssocSubject(subjectIdToDelete);
                         break;
                     default:
                         Console.Write("Input unrecognised.");
