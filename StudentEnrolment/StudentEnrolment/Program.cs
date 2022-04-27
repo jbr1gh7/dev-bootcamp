@@ -109,16 +109,20 @@ namespace StudentEnrolment
 
                 if (startChar != ',' && endChar != ',' && !isValidChars)
                 {
-                    isValid = true;
                     string[] choiceList = choices.Split(","); 
-
                     for (int i = 0; i < choiceList.Length; i++)
                     {
                         int referenceIndex = Int32.Parse(choiceList[i]);
-                        
-                        //check that referenceIndex is not less than 0 or more than length of referenceList
-
-                        assocList.Add(referenceList[referenceIndex]);
+                        if (referenceIndex < referenceList.Count)
+                        {
+                            isValid = true;
+                            assocList.Add(referenceList[referenceIndex]);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Choice does not exist. Try again.");
+                            continue;
+                        }
                     }
                 }
                 else
@@ -225,7 +229,7 @@ namespace StudentEnrolment
 
                         data.Subjects.Add(new Subject(subjectName, subjectDescription, subjectId));
                         break;
-                    case "7": //add removal of association in corresponding course
+                    case "7":
                         string studentIdToDelete = Input("Input the Id of the student to delete");
                         data.Students = deleteStudentById(studentIdToDelete, data.Students);
                         break;
@@ -233,7 +237,7 @@ namespace StudentEnrolment
                         string courseIdToDelete = Input("Input the Id of the student to delete");
                         data.Students = deleteCurriculumById(courseIdToDelete, data.Courses); 
                         break;
-                    case "9": //add removal of association in corresponding course
+                    case "9":
                         string subjectIdToDelete = Input("Input the Id of the student to delete");
                         data.Students = deleteCurriculumById(subjectIdToDelete, data.Subjects); 
                         break;
