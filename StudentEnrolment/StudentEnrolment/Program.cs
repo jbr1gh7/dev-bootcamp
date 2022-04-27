@@ -45,21 +45,38 @@ namespace StudentEnrolment
 
         static void ListStudents(List<Student> students) 
         {
-            Console.WriteLine("\n");
-            for (int i = 0; i < students.Count; i++) { Console.WriteLine(i.ToString() + ". " + students[i].FirstName + " " + students[i].LastName); }
+            for (int i = 0; i < students.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + students[i].FirstName + " " + students[i].LastName); }
         }
 
         static void ListCurriculum<T>(List<T> curricula)
         where T : Curriculum
         {
-            Console.WriteLine("\n");
-            for (int i = 0; i < curricula.Count; i++) { Console.WriteLine(i.ToString() + ". " + curricula[i].Name + ":\n" + curricula[i].Description + "\n"); }
+            for (int i = 0; i < curricula.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + curricula[i].Name + ":\n" + curricula[i].Description + "\n"); }
         }
 
         static string Input(string message)
         {
-            Console.WriteLine(message);
-            return Console.ReadLine();
+            bool isEmpty = true;
+            string response = "";
+
+            while (isEmpty)
+            {
+                Console.WriteLine("\n" + message);
+                response = Console.ReadLine();
+
+                if (response != "")
+                    isEmpty = false;
+                else
+                    Console.WriteLine("You must input something.");
+            }
+            return response;
+        }
+
+        static string removeWhitespace(string input) 
+        { 
+            return new string(input.ToCharArray()
+                        .Where(c => !Char.IsWhiteSpace(c))
+                        .ToArray());
         }
 
         static List<T> MakeAssocFromInput<T>(string message, dynamic data, bool isSubject)
@@ -93,12 +110,15 @@ namespace StudentEnrolment
                 if (startChar != ',' && endChar != ',' && !isValidChars)
                 {
                     isValid = true;
-                    string[] choiceList = choices.Split(",");
+                    string[] choiceList = choices.Split(","); 
 
                     for (int i = 0; i < choiceList.Length; i++)
                     {
-                        int index = Int32.Parse(choiceList[i]);
-                        assocList.Add(referenceList[index]);
+                        int referenceIndex = Int32.Parse(choiceList[i]);
+                        
+                        //check that referenceIndex is not less than 0 or more than length of referenceList
+
+                        assocList.Add(referenceList[referenceIndex]);
                     }
                 }
                 else
@@ -110,6 +130,37 @@ namespace StudentEnrolment
             return assocList;
         }
 
+        static List<Student> deleteStudentById(string id, List<Student> students)
+        {
+            for (int i = 0; i < students.Count; i++)
+            {
+                if (students[i].Id == id)
+                {
+                    students.RemoveAt(i);
+                    return students;
+                }
+            }
+
+            Console.WriteLine("Id unrecognised.");
+            return students;
+        }
+
+        static List<T> deleteCurriculumById<T>(string id, List<T> curricula)
+        where T : Curriculum
+        {
+            for (int i = 0; i < curricula.Count; i++)
+            {
+                if (curricula[i].Id == id)
+                {
+                    curricula.RemoveAt(i);
+                    return curricula;
+                }
+            }
+
+            Console.WriteLine("Id unrecognised.");
+            return curricula;
+        }
+
         static void Main(string[] args)
         {
             bool isFinished = false;
@@ -117,8 +168,7 @@ namespace StudentEnrolment
 
             while (!isFinished) 
             {
-                string choice = Input("Select a menu choice: \n1. List all students\n2. List all courses\n3. List all subjects\n4. Add a new student\n5. Add a new course\n6. Add a new subject\n7. Delete a student\n8. Delete a course\n9. Delete a subject");
-                Console.WriteLine("\n");
+                string choice = Input("Select a menu choice: \n1. List all students\n2. List all courses\n3. List all subjects\n4. Add a new student\n5. Add a new course\n6. Add a new subject\n7. Delete a student\n8. Delete a course\n9. Delete a subject\n");
 
                 switch (choice)
                 {
@@ -140,21 +190,31 @@ namespace StudentEnrolment
                         break;
                     case "5":
                         string courseId = Guid.NewGuid().ToString();
+                        bool isValid = false;
+                        bool isPartFunded = false;
+                        
                         string courseName = Input("Input course name: ");
                         string courseDescription = Input("Input course description: ");
 
-                        string fundChoice = Input("Is this course partly funded? (y/n): ");
-                        bool isPartFunded = fundChoice.ToLower() == "y" ? true : false;
+                        while (!isValid) 
+                        {
+                            string fundChoice = Input("Is this course partly funded? (y/n): ");
+                            if (fundChoice.ToLower() == "y")
+                            {
+                                isValid = true;
+                                isPartFunded = true;
+                            }
+                            else if (fundChoice.ToLower() == "n")
+                            {
+                                isValid = true;
+                                isPartFunded = false;
+                            }
+                            else
+                                Console.WriteLine("Input 'y' for yes or 'n' for no.");
+                        }
 
                         List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, true);
-
-                        for (int i = 0; i < courseSubject.Count; i++)
-                            Console.WriteLine(courseSubject[i].Name);
-
                         List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", data, false);
-
-                        for (int i = 0; i < courseMembership.Count; i++)
-                            Console.WriteLine(courseMembership[i].FirstName);
 
                         data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
                         break;
@@ -165,14 +225,20 @@ namespace StudentEnrolment
 
                         data.Subjects.Add(new Subject(subjectName, subjectDescription, subjectId));
                         break;
-                    case "7":
-                        // code block
+                    case "7": //add removal of association in corresponding course
+                        string studentIdToDelete = Input("Input the Id of the student to delete");
+                        data.Students = deleteStudentById(studentIdToDelete, data.Students);
                         break;
                     case "8":
-                        // code block
+                        string courseIdToDelete = Input("Input the Id of the student to delete");
+                        data.Students = deleteCurriculumById(courseIdToDelete, data.Courses); 
+                        break;
+                    case "9": //add removal of association in corresponding course
+                        string subjectIdToDelete = Input("Input the Id of the student to delete");
+                        data.Students = deleteCurriculumById(subjectIdToDelete, data.Subjects); 
                         break;
                     default:
-                        // code block
+                        Console.Write("Input unrecognised.");
                         break;
                 }
                 Console.WriteLine("\n");
