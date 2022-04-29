@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StudentEnrolment.Models
 {
-    class Subject : Curriculum
+    public class Subject : Curriculum
     {
         public Subject(string id, string name, string description)
         {
