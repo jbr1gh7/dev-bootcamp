@@ -1,4 +1,6 @@
-﻿using StudentEnrolment.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using StudentEnrolment.Data;
+using StudentEnrolment.Models;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -11,7 +13,9 @@ namespace StudentEnrolment
     class Program
     {
         static dynamic data;
+        private static EnrolmentDbContext _db = new EnrolmentDbContext();
 
+        /*
         static List<T> DeserializeToList<T>(string filePath)
         {
             var file = System.IO.File.ReadAllText(filePath);
@@ -42,16 +46,36 @@ namespace StudentEnrolment
             data.Students = students;
             data.Subjects = subjects;
         }
+        */
 
-        static void ListStudents() 
+        static async void ListStudents() 
         {
-            for (int i = 0; i < data.Students.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + data.Students[i].FirstName + " " + data.Students[i].LastName); }
+            List<Student> itemList = await _db.Student.ToListAsync();
+            for (int i = 0; i < itemList.Count; i++) 
+            { 
+                Console.WriteLine("\n" + i.ToString() + ". " + itemList[i].FirstName + " " + itemList[i].LastName); 
+            }
         }
 
         static void ListCurriculum<T>(List<T> curricula)
         where T : Curriculum
         {
-            for (int i = 0; i < curricula.Count; i++) { Console.WriteLine("\n" + i.ToString() + ". " + curricula[i].Name + ":\n" + curricula[i].Description + "\n"); }
+            for (int i = 0; i < curricula.Count; i++)
+            {
+                Console.WriteLine("\n" + i.ToString() + ". " + curricula[i].Name + ":\n" + curricula[i].Description + "\n");
+            }
+        }
+
+        static async void ListCourses()
+        {
+            List<Course> itemList = await _db.Course.ToListAsync();
+            ListCurriculum(itemList);
+        }
+
+        static async void ListSubjects()
+        {
+            List<Subject> itemList = await _db.Subject.ToListAsync();
+            ListCurriculum(itemList);
         }
 
         static string Input(string message)
@@ -196,10 +220,10 @@ namespace StudentEnrolment
             }
         }
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             bool isFinished = false;
-            LoadDataInProgram();
+            //LoadDataInProgram();
 
             while (!isFinished) 
             {
@@ -211,10 +235,10 @@ namespace StudentEnrolment
                         ListStudents();
                         break;
                     case "2":
-                        ListCurriculum(data.Courses);
+                        ListCourses();
                         break;
                     case "3":
-                        ListCurriculum(data.Subjects);
+                        ListSubjects();
                         break;
                     case "4":
                         string studentId = Guid.NewGuid().ToString();
@@ -251,7 +275,7 @@ namespace StudentEnrolment
                         List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", true);
                         List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", false);
 
-                        data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
+                        //data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
                         break;
                     case "6":
                         string subjectId = Guid.NewGuid().ToString();
