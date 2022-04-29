@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS Course (
 	Id VARCHAR(36) NOT NULL,
     Name VARCHAR(30),
     Description TEXT,
+    IsPartFunded BOOLEAN NOT NULL DEFAULT false,
     PRIMARY KEY (Id)
 );
 
