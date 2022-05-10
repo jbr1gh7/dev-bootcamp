@@ -188,61 +188,103 @@ namespace StudentEnrolment
             }
         }
 
+        static void removeAssocStudent(string studentId)
+        {
+            List<CourseMembership> associations = _db.CourseMembership.Where(x => x.StudentId == studentId).ToList();
+            if (associations != null)
+            {
+                for (int i = 0; i < associations.Count; i++)
+                {
+                    _db.CourseMembership.Remove(associations[i]);
+                    _db.SaveChanges();
+                }
+
+                Console.WriteLine("The student was removed from their associated courses.");
+            }
+        }
+
         static void deleteStudentById(string id)
         {
-
-            Console.WriteLine("\n" + data.Students[i].FirstName + " " + data.Students[i].LastName + " was deleted.");
-            return;
-
-
+            var student = _db.Student.FirstOrDefault(x => x.Id == id);
+            if (student != null)
+            {
+                removeAssocStudent(id);
+                _db.Student.Remove(student);
+                _db.SaveChanges();
+                Console.WriteLine("\n" + student.FirstName + " " + student.LastName + " was deleted.");
+                return;
+            }
             Console.WriteLine("Id unrecognised.");
         }
 
-        static List<T> deleteCurriculumById<T>(string id, List<T> curricula)
-        where T : Curriculum
+        static void removeAssocCourse(string courseId)
         {
-            for (int i = 0; i < curricula.Count; i++)
+            List<CourseSubject> subjectAssocs = _db.CourseSubject.Where(x => x.CourseId == courseId).ToList();
+            if (subjectAssocs != null)
             {
-                if (curricula[i].Id == id)
+                for (int i = 0; i < subjectAssocs.Count; i++)
                 {
-                    Console.WriteLine("\n" + curricula[i].Name + " was deleted.");
-                    curricula.RemoveAt(i);
-                    return curricula;
+                    _db.CourseSubject.Remove(subjectAssocs[i]);
+                    _db.SaveChanges();
                 }
+
+                Console.WriteLine("The course was removed from it's associated subjects.");
             }
 
+            List<CourseMembership> courseAssocs = _db.CourseMembership.Where(x => x.CourseId == courseId).ToList();
+            if (courseAssocs != null)
+            {
+                for (int i = 0; i < courseAssocs.Count; i++)
+                {
+                    _db.CourseMembership.Remove(courseAssocs[i]);
+                    _db.SaveChanges();
+                }
+
+                Console.WriteLine("The course was removed from it's associated students.");
+            }
+        }
+
+        static void deleteCourseById(string id)
+        {
+            var course = _db.Course.FirstOrDefault(x => x.Id == id);
+            if (course != null)
+            {
+                removeAssocCourse(id);
+                _db.Course.Remove(course);
+                _db.SaveChanges();
+                Console.WriteLine("\n" + course.Name + " was deleted.");
+                return;
+            }
             Console.WriteLine("Id unrecognised.");
-            return curricula;
         }
 
-        static void removeAssocSubject(string id)
+        static void removeAssocSubject(string subjectId)
         {
-            for (int i = 0; i < data.Courses.Count; i++)
+            List<CourseSubject> associations = _db.CourseSubject.Where(x => x.SubjectId == subjectId).ToList();
+            if (associations != null)
             {
-                for (int j = 0; j < data.Courses[i].CourseSubject.Count; j++)
+                for (int i = 0; i < associations.Count; i++)
                 {
-                    if (data.Courses[i].CourseSubject[j].Id == id)
-                    {
-                        Console.WriteLine(data.Courses[i].CourseSubject[j].Name + " was also removed from the " + data.Courses[i].Name + " course.");
-                        data.Courses[i].CourseSubject.RemoveAt(j);
-                    }
+                    _db.CourseSubject.Remove(associations[i]);
+                    _db.SaveChanges();
                 }
+
+                Console.WriteLine("The subject was removed from it's associated courses.");
             }
         }
 
-        static void removeAssocStudent(string id)
+        static void deleteSubjectById(string id)
         {
-            for (int i = 0; i < data.Courses.Count; i++)
+            var subject = _db.Subject.FirstOrDefault(x => x.Id == id);
+            if (subject != null)
             {
-                for (int j = 0; j < data.Courses[i].CourseMembership.Count; j++)
-                {
-                    if (data.Courses[i].CourseMembership[j].Id == id)
-                    {
-                        Console.WriteLine(data.Courses[i].CourseMembership[j].FirstName + " was also removed from the " + data.Courses[i].Name + " course.");
-                        data.Courses[i].CourseMembership.RemoveAt(j);
-                    }
-                }
+                removeAssocSubject(id);
+                _db.Subject.Remove(subject);
+                _db.SaveChanges();
+                Console.WriteLine("\n" + subject.Name + " was deleted.");
+                return;
             }
+            Console.WriteLine("Id unrecognised.");
         }
 
         public static void Main(string[] args)
@@ -319,16 +361,14 @@ namespace StudentEnrolment
                     case "7":
                         string studentIdToDelete = Input("Input the ID of the student to delete");
                         deleteStudentById(studentIdToDelete);
-                        removeAssocStudent(studentIdToDelete);
                         break;
                     case "8":
                         string courseIdToDelete = Input("Input the ID of the course to delete");
-                        data.Courses = deleteCurriculumById(courseIdToDelete, data.Courses); 
+                        deleteCourseById(courseIdToDelete); 
                         break;
                     case "9":
                         string subjectIdToDelete = Input("Input the ID of the subject to delete");
-                        data.Subjects = deleteCurriculumById(subjectIdToDelete, data.Subjects);
-                        removeAssocSubject(subjectIdToDelete);
+                        deleteSubjectById(subjectIdToDelete);
                         break;
                     default:
                         Console.Write("Input unrecognised.");
