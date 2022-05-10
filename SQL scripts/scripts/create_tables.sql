@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS Subject (
 );
 
 CREATE TABLE IF NOT EXISTS CourseSubject (
+	Id varchar(36) NOT NULL,
     CourseId VARCHAR(36),
     SubjectId VARCHAR(36),
     FOREIGN KEY (CourseID) REFERENCES Course(Id),
@@ -28,6 +29,7 @@ CREATE TABLE IF NOT EXISTS CourseSubject (
 );
 
 CREATE TABLE IF NOT EXISTS CourseMembership (
+	Id varchar(36) NOT NULL,
     CourseId VARCHAR(36),
     StudentId VARCHAR(36),
 	FOREIGN KEY (CourseID) REFERENCES Course(Id),
