@@ -1,53 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
-using StudentEnrolment.Data;
+﻿using StudentEnrolment.Data;
 using StudentEnrolment.Interfaces;
 using StudentEnrolment.Models;
 using System;
 using System.Collections.Generic;
-using System.Dynamic;
 using System.Linq;
-using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace StudentEnrolment
 {
     class Program
     {
-        static dynamic data;
         private static EnrolmentDbContext _db = new EnrolmentDbContext();
-
-        /*
-        static List<T> DeserializeToList<T>(string filePath)
-        {
-            var file = System.IO.File.ReadAllText(filePath);
-
-            return JsonSerializer.Deserialize<List<T>>(file, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            });
-        }
-
-        static void LoadDataInProgram()
-        {
-            List<Course> courses = DeserializeToList<Course>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/course.json");
-            List<Student> students = DeserializeToList<Student>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/student.json");
-            List<Subject> subjects = DeserializeToList<Subject>("C:/Users/jacobbright/Documents/GitHub/dev-bootcamp/StudentEnrolment/StudentEnrolment/Test_Data/subject.json");
-
-            courses[0].CourseSubject = subjects.GetRange(0, 4); //Engineering
-            courses[1].CourseSubject = subjects.GetRange(4, 3); //Chemistry
-            courses[2].CourseSubject = subjects.GetRange(7, 3); //Law
-
-            courses[0].CourseMembership = students.GetRange(0, 5); //first 5
-            courses[1].CourseMembership = students.GetRange(5, 5); //next 5
-            courses[2].CourseMembership = students.GetRange(10, 5); //last 5
-
-            data = new ExpandoObject();
-
-            data.Courses = courses;
-            data.Students = students;
-            data.Subjects = subjects;
-        }
-        */
 
         static string GenerateGuid()
         {
@@ -100,13 +63,6 @@ namespace StudentEnrolment
                     Console.WriteLine("You must input something.");
             }
             return response;
-        }
-
-        static string removeWhitespace(string input) 
-        { 
-            return new string(input.ToCharArray()
-                        .Where(c => !Char.IsWhiteSpace(c))
-                        .ToArray());
         }
 
         static bool ValidateChoices(string choices)
@@ -188,7 +144,7 @@ namespace StudentEnrolment
             }
         }
 
-        static void removeAssocStudent(string studentId)
+        static void RemoveAssocStudent(string studentId)
         {
             List<CourseMembership> associations = _db.CourseMembership.Where(x => x.StudentId == studentId).ToList();
             if (associations != null)
@@ -203,12 +159,12 @@ namespace StudentEnrolment
             }
         }
 
-        static void deleteStudentById(string id)
+        static void DeleteStudentById(string id)
         {
             var student = _db.Student.FirstOrDefault(x => x.Id == id);
             if (student != null)
             {
-                removeAssocStudent(id);
+                RemoveAssocStudent(id);
                 _db.Student.Remove(student);
                 _db.SaveChanges();
                 Console.WriteLine("\n" + student.FirstName + " " + student.LastName + " was deleted.");
@@ -217,7 +173,7 @@ namespace StudentEnrolment
             Console.WriteLine("Id unrecognised.");
         }
 
-        static void removeAssocCourse(string courseId)
+        static void RemoveAssocCourse(string courseId)
         {
             List<CourseSubject> subjectAssocs = _db.CourseSubject.Where(x => x.CourseId == courseId).ToList();
             if (subjectAssocs != null)
@@ -244,12 +200,12 @@ namespace StudentEnrolment
             }
         }
 
-        static void deleteCourseById(string id)
+        static void DeleteCourseById(string id)
         {
             var course = _db.Course.FirstOrDefault(x => x.Id == id);
             if (course != null)
             {
-                removeAssocCourse(id);
+                RemoveAssocCourse(id);
                 _db.Course.Remove(course);
                 _db.SaveChanges();
                 Console.WriteLine("\n" + course.Name + " was deleted.");
@@ -258,7 +214,7 @@ namespace StudentEnrolment
             Console.WriteLine("Id unrecognised.");
         }
 
-        static void removeAssocSubject(string subjectId)
+        static void RemoveAssocSubject(string subjectId)
         {
             List<CourseSubject> associations = _db.CourseSubject.Where(x => x.SubjectId == subjectId).ToList();
             if (associations != null)
@@ -273,12 +229,12 @@ namespace StudentEnrolment
             }
         }
 
-        static void deleteSubjectById(string id)
+        static void DeleteSubjectById(string id)
         {
             var subject = _db.Subject.FirstOrDefault(x => x.Id == id);
             if (subject != null)
             {
-                removeAssocSubject(id);
+                RemoveAssocSubject(id);
                 _db.Subject.Remove(subject);
                 _db.SaveChanges();
                 Console.WriteLine("\n" + subject.Name + " was deleted.");
@@ -360,15 +316,15 @@ namespace StudentEnrolment
                         break;
                     case "7":
                         string studentIdToDelete = Input("Input the ID of the student to delete");
-                        deleteStudentById(studentIdToDelete);
+                        DeleteStudentById(studentIdToDelete);
                         break;
                     case "8":
                         string courseIdToDelete = Input("Input the ID of the course to delete");
-                        deleteCourseById(courseIdToDelete); 
+                        DeleteCourseById(courseIdToDelete); 
                         break;
                     case "9":
                         string subjectIdToDelete = Input("Input the ID of the subject to delete");
-                        deleteSubjectById(subjectIdToDelete);
+                        DeleteSubjectById(subjectIdToDelete);
                         break;
                     default:
                         Console.Write("Input unrecognised.");
