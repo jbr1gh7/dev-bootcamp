@@ -9,21 +9,12 @@ using StudentEnrolment.Models;
 namespace StudentEnrolment.Data
 {
     public class EnrolmentDbContext : DbContext
-    {/*
-        public EnrolmentDbContext(DbContextOptions<EnrolmentDbContext> options)
-            : base(options)
-        {
-        }
-
-        public DbSet<Course> Course { get; set; }
-        public DbSet<Student> Student { get; set; }
-        public DbSet<Subject> Subject { get; set; }
-        */
-
-
+    {
         public DbSet<Student> Student { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<Subject> Subject { get; set; }
+        public DbSet<CourseMembership> CourseMembership { get; set; }
+        public DbSet<CourseSubject> CourseSubject { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
