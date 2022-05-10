@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
+using StudentEnrolment.Interfaces;
 using StudentEnrolment.Models;
 using System;
 using System.Collections.Generic;
@@ -48,9 +49,14 @@ namespace StudentEnrolment
         }
         */
 
-        static async void ListStudents() 
+        static string GenerateGuid()
         {
-            List<Student> itemList = await _db.Student.ToListAsync();
+           return Guid.NewGuid().ToString();
+        }
+
+        static void ListStudents() 
+        {
+            List<Student> itemList = _db.Student.ToList();
             for (int i = 0; i < itemList.Count; i++) 
             { 
                 Console.WriteLine("\n" + i.ToString() + ". " + itemList[i].FirstName + " " + itemList[i].LastName); 
@@ -66,15 +72,15 @@ namespace StudentEnrolment
             }
         }
 
-        static async void ListCourses()
+        static void ListCourses()
         {
-            List<Course> itemList = await _db.Course.ToListAsync();
+            List<Course> itemList = _db.Course.ToList();
             ListCurriculum(itemList);
         }
 
-        static async void ListSubjects()
+        static void ListSubjects()
         {
-            List<Subject> itemList = await _db.Subject.ToListAsync();
+            List<Subject> itemList = _db.Subject.ToList();
             ListCurriculum(itemList);
         }
 
@@ -103,44 +109,54 @@ namespace StudentEnrolment
                         .ToArray());
         }
 
-        static List<T> MakeAssocFromInput<T>(string message, bool isSubject)
+        static bool ValidateChoices(string choices)
         {
-            bool isValid = false;
-            List<T> referenceList;
-            List<T> assocList = new List<T>();
-
-            if (isSubject)
-            {
-                referenceList = data.Subjects;
-                ListCurriculum(data.Subjects);
-            }
-            else
-            {
-                referenceList = data.Students;
-                ListStudents();
-            }
-
-            while (!isValid)
-            {
-                string choices = Input(message);
-                choices = new string(choices.ToCharArray()
+            choices = new string(choices.ToCharArray()
                         .Where(c => !Char.IsWhiteSpace(c))
                         .ToArray());
 
-                char startChar = choices[0];
-                char endChar = choices[choices.Length - 1];
-                bool isValidChars = Regex.IsMatch(choices, @"[^0-9,\s]");
+            char startChar = choices[0];
+            char endChar = choices[choices.Length - 1];
+            bool isInvalidChars = Regex.IsMatch(choices, @"[^0-9,\s]");
 
-                if (startChar != ',' && endChar != ',' && !isValidChars)
+            if (startChar != ',' && endChar != ',' && !isInvalidChars)
+                return true;
+
+            return false;
+        }
+
+        static void TakeChoices<T>(string message, string courseId, bool isSubject, List<T> referenceList)
+            where T : IdInterface
+        {
+            bool isValid = false;
+            while (!isValid)
+            {
+                string choices = Input(message);
+                isValid = ValidateChoices(choices);
+
+                if (isValid)
                 {
-                    string[] choiceList = choices.Split(","); 
+                    string[] choiceList = choices.Split(",");
                     for (int i = 0; i < choiceList.Length; i++)
                     {
                         int referenceIndex = Int32.Parse(choiceList[i]);
                         if (referenceIndex < referenceList.Count)
                         {
                             isValid = true;
-                            assocList.Add(referenceList[referenceIndex]);
+                            if (isSubject)
+                            {
+                                CourseSubject courseSubject = new CourseSubject(GenerateGuid(), courseId, referenceList[referenceIndex].Id);
+                                Console.WriteLine(courseSubject.Id);
+                                _db.CourseSubject.Add(courseSubject);
+                                _db.SaveChanges();
+                            }
+                            else
+                            {
+                                CourseMembership courseMembership = new CourseMembership(GenerateGuid(), courseId, referenceList[referenceIndex].Id);
+                                Console.WriteLine(courseMembership.Id);
+                                _db.CourseMembership.Add(courseMembership);
+                                _db.SaveChanges();
+                            }
                         }
                         else
                         {
@@ -154,21 +170,30 @@ namespace StudentEnrolment
                     Console.WriteLine("Bad input, try again.");
                 }
             }
+        }
 
-            return assocList;
+        static void AssociateNewCourse(string message, string courseId, bool isSubject)
+        {
+            if (isSubject)
+            {
+                List<Subject> referenceList = _db.Subject.ToList();
+                ListSubjects();
+                TakeChoices(message, courseId, isSubject, referenceList);
+            }
+            else
+            {
+                List<Student> referenceList = _db.Student.ToList();
+                ListStudents();
+                TakeChoices(message, courseId, isSubject, referenceList);
+            }
         }
 
         static void deleteStudentById(string id)
         {
-            for (int i = 0; i < data.Students.Count; i++)
-            {
-                if (data.Students[i].Id == id)
-                {
-                    Console.WriteLine("\n" + data.Students[i].FirstName + " " + data.Students[i].LastName + " was deleted.");
-                    data.Students.RemoveAt(i);
-                    return;
-                }
-            }
+
+            Console.WriteLine("\n" + data.Students[i].FirstName + " " + data.Students[i].LastName + " was deleted.");
+            return;
+
 
             Console.WriteLine("Id unrecognised.");
         }
@@ -241,11 +266,13 @@ namespace StudentEnrolment
                         ListSubjects();
                         break;
                     case "4":
-                        string studentId = Guid.NewGuid().ToString();
+                        string studentId = GenerateGuid();
                         string firstName = Input("Input first name: ");
                         string lastName = Input("Input last name: ");
 
-                        data.Students.Add(new Student(studentId, firstName, lastName));
+                        Student student = new Student(studentId, firstName, lastName);
+                        _db.Student.Add(student);
+                        _db.SaveChanges();
                         break;
                     case "5":
                         string courseId = Guid.NewGuid().ToString();
@@ -272,17 +299,22 @@ namespace StudentEnrolment
                                 Console.WriteLine("Input 'y' for yes or 'n' for no.");
                         }
 
-                        List<Subject> courseSubject = MakeAssocFromInput<Subject>("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", true);
-                        List<Student> courseMembership = MakeAssocFromInput<Student>("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", false);
+                        Course course = new Course(courseId, courseName, courseDescription, isPartFunded);
+                        _db.Course.Add(course);
+                        _db.SaveChanges();
 
-                        //data.Courses.Add(new Course(courseId, courseName, courseDescription, isPartFunded, courseSubject, courseMembership));
+                        AssociateNewCourse("Which subjects are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", courseId, true);
+                        AssociateNewCourse("Which students are associated with this course?\nSelect using integers delimited by a comma (e.g 1,3,5,7): ", courseId, false);
+
                         break;
                     case "6":
                         string subjectId = Guid.NewGuid().ToString();
                         string subjectName = Input("Input subject name: ");
                         string subjectDescription = Input("Input subject description: ");
 
-                        data.Subjects.Add(new Subject(subjectId, subjectName, subjectDescription));
+                        Subject subject = new Subject(subjectId, subjectName, subjectDescription);
+                        _db.Subject.Add(subject);
+                        _db.SaveChanges();
                         break;
                     case "7":
                         string studentIdToDelete = Input("Input the ID of the student to delete");
