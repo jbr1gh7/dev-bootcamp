@@ -15,12 +15,9 @@ namespace StudentEnrolment.Data
         public DbSet<Subject> Subject { get; set; }
         public DbSet<CourseMembership> CourseMembership { get; set; }
         public DbSet<CourseSubject> CourseSubject { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public EnrolmentDbContext(DbContextOptions<EnrolmentDbContext> options)
+            : base(options)
         {
-            optionsBuilder.UseMySql("Server = 127.0.0.1; Database = studentenrolment; Uid = devuser; Password = ****",
-                new MySqlServerVersion(new Version(8, 0, 11))
-            );
         }
     }
 }
