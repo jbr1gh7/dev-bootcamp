@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using StudentEnrolment.Data;
-using StudentEnrolment.Interfaces;
 using StudentEnrolment.Models;
 
 namespace StudentEnrolment.Controllers
@@ -37,14 +36,13 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Student/Delete")]
-        public IActionResult Delete([FromBody] Student student)
+        public IActionResult Delete([FromBody] IdBase student)
         {
             Student foundStudent = _db.Student.FirstOrDefault(x => x.Id == student.Id);
             if (foundStudent != null)
             {
                 try
                 {
-                    RemoveAssocStudent(student.Id);
                     _db.Student.Remove(foundStudent);
                     _db.SaveChanges();
                     return Ok();
@@ -55,21 +53,6 @@ namespace StudentEnrolment.Controllers
                 }
             }
             return BadRequest();
-        }
-
-        private void RemoveAssocStudent(string studentId)
-        {
-            List<CourseMembership> associations = _db.CourseMembership.Where(x => x.StudentId == studentId).ToList();
-            if (associations != null)
-            {
-                for (int i = 0; i < associations.Count; i++)
-                {
-                    _db.CourseMembership.Remove(associations[i]);
-                    _db.SaveChanges();
-                }
-
-                Console.WriteLine("The student was removed from their associated courses.");
-            }
         }
     }
 }

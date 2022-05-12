@@ -9,11 +9,8 @@ using System.Threading.Tasks;
 
 namespace StudentEnrolment.Models
 {
-    public class CourseMembership
+    public class CourseMembership : IdBase
     {
-        [Column(TypeName = "varchar(36)")]
-        [Required(ErrorMessage = "Id field is required.")]
-        public string Id { get; set; }
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "CourseId field is required.")]
         public string CourseId { get; set; }
