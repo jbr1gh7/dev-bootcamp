@@ -14,9 +14,11 @@ namespace StudentEnrolment.Models
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "Id field is required.")]
         public string Id { get; set; }
+        [ForeignKey("Course")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "CourseId field is required.")]
         public string CourseId { get; set; }
+        [ForeignKey("Subject")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "SubjectId field is required.")]
         public string SubjectId { get; set; }

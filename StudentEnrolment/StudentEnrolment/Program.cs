@@ -164,7 +164,7 @@ namespace StudentEnrolment
             var student = _db.Student.FirstOrDefault(x => x.Id == id);
             if (student != null)
             {
-                RemoveAssocStudent(id);
+                //RemoveAssocStudent(id);
                 _db.Student.Remove(student);
                 _db.SaveChanges();
                 Console.WriteLine("\n" + student.FirstName + " " + student.LastName + " was deleted.");
