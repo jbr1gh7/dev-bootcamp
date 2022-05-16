@@ -1,0 +1,52 @@
+﻿[
+  {
+    "Id": "161afaa6-d962-4c8a-baaa-1da8238b3467",
+    "Name": "Chemical Engineering",
+    "Description": "Chemical engineering is the application of physics, chemistry, biology, and engineering principles in order to carry out chemical processes on a commercial scale, such as the manufacture of commodity chemicals, specialty chemicals, petroleum refining, microfabrication, fermentation, and biomolecule production."
+  },
+  {
+    "Id": "2f97a1e4-9450-4c82-aa4f-187ff81fee21",
+    "Name": "Civil Engineering",
+    "Description": "Civil engineering is the design and construction of public and private works, such as infrastructure (airports, roads, railways, water supply, and treatment etc.), bridges, tunnels, dams, and buildings. Civil engineering is traditionally broken into a number of sub-disciplines, including structural engineering, environmental engineering, and surveying."
+  },
+  {
+    "Id": "3bb1705d-fff4-46b6-818e-18a73bf07e2e",
+    "Name": "Electrical engineering",
+    "Description": "Electrical engineering is the design, study, and manufacture of various electrical and electronic systems, such as broadcast engineering, electrical circuits, generators, motors, electromagnetic/electromechanical devices, electronic devices, electronic circuits and optical fibers"
+  },
+  {
+    "Id": "068ba6ba-0761-4913-9bbd-8f37ca80ce1e",
+    "Name": "Mechanical engineering",
+    "Description": "Mechanical engineering is the design and manufacture of physical or mechanical systems, such as power and energy systems, aerospace/aircraft products, weapon systems, transportation products, engines, compressors, powertrains, kinematic chains, vacuum technology, vibration isolation equipment, manufacturing and robotics"
+  },
+  {
+    "Id": "729c3bfa-7f01-470e-9bff-f85c54182dee",
+    "Name": "Atomic Structure",
+    "Description": "An atom is the smallest unit of ordinary matter that forms a chemical element. Every solid, liquid, gas, and plasma is composed of neutral or ionized atoms. Atoms are extremely small, typically around 100 picometers across. They are so small that accurately predicting their behavior using classical physics—as if they were tennis balls, for example—is not possible due to quantum effects."
+  },
+  {
+    "Id": "236d4aee-fd03-4e72-8389-0be8fecca10d",
+    "Name": "Electrochemistry",
+    "Description": "Electrochemistry is primarily concerned with oxidation-reduction reactions or redox reactions. These reactions produce ions and may be harnessed to produce electrodes and batteries. Electrochemistry is used to predict whether a reaction will occur and in which direction electrons will flow."
+  },
+  {
+    "Id": "1a21cf4f-b8e0-4d12-855f-bdc983cd4444",
+    "Name": "Units and Measurement",
+    "Description": "Chemistry is a science that relies on experimentation, which often involves taking measurements and performing calculations based on those measurements. It is important to be familiar with the units of measurement and the various ways of converting between different units."
+  },
+  {
+    "Id": "9bee9a73-5cda-4335-af7e-925cff79a5ef",
+    "Name": "International Law",
+    "Description": "International law, also known as International Ethics, public international law and law of nations, is the set of rules, norms, and standards generally recognized as binding between nations. It establishes normative guidelines and a common conceptual framework for states across a broad range of domains, including war, diplomacy, trade, and human rights. International law aims to promote the practice of stable, consistent, and organized international relations."
+  },
+  {
+    "Id": "8102cf40-ec77-48a5-82b9-59febdd549a3",
+    "Name": "Case Law",
+    "Description": "Case law, also used interchangeably with common law, is law that is based on precedents, that is the judicial decisions from previous cases, rather than law based on constitutions, statutes, or regulations. Case law uses the detailed facts of a case that have been resolved by courts or similar tribunals."
+  },
+  {
+    "Id": "20fa9bfc-44da-4c80-86d2-38587f06c9f3",
+    "Name": "Legislation",
+    "Description": "Legislation is the process or product of enrolling, enacting, or promulgating law by a legislature, parliament, or analogous governing body. Before an item of legislation becomes law it may be known as a bill, and may be broadly referred to as legislation while it remains under consideration to distinguish it from other business."
+  }
+]
