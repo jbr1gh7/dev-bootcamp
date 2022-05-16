@@ -11,9 +11,11 @@ namespace StudentEnrolment.Models
 {
     public class CourseMembership : IdBase
     {
+        [ForeignKey("CourseId")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "CourseId field is required.")]
         public string CourseId { get; set; }
+        [ForeignKey("StudentId")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "StudentId field is required.")]
         public string StudentId { get; set; }
