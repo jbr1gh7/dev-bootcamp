@@ -13,3 +13,28 @@ button {
 button:hover {
     cursor: pointer;
 }
+
+table {
+    margin: auto;
+    margin-top: 20px;
+    width: 95%;
+}
+
+table, th, td {
+    border: 2px solid #353b3c;
+    border-collapse: collapse;
+    color: #353b3c;
+}
+
+th, td {
+    background-color: #EEF0F2;
+    padding: 10px;
+}
+
+th {
+    text-align: left;
+}
+
+.delete-column {
+    width: 10px;
+}

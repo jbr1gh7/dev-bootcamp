@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
   selector: 'app-table-control',
@@ -6,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./table-control.component.css']
 })
 export class TableControlComponent implements OnInit {
-  entity: string;
 
-  constructor() {
-    this.entity = 'student';
+  constructor(private eventBus: EventBusService) {
+
   }
 
   ngOnInit(): void {
+
   }
 
 }

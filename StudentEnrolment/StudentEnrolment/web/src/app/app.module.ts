@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { StudentTableComponent } from './components/student-table/student-table.component';
 import { TableControlComponent } from './components/table-control/table-control.component';
+import { CourseTableComponent } from './components/course-table/course-table.component';
+import { SubjectTableComponent } from './components/subject-table/subject-table.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +15,8 @@ import { TableControlComponent } from './components/table-control/table-control.
     HeaderComponent,
     StudentTableComponent,
     TableControlComponent,
+    CourseTableComponent,
+    SubjectTableComponent,
   ],
   imports: [
     BrowserModule,

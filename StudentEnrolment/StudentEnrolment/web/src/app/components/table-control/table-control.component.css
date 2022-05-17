@@ -1,7 +1,7 @@
 .table-control-container {
-    width: 170px;
+    width: 110px;
     margin-top: 15px;
-    margin-left: calc(50% - (170px / 2));
+    margin-left: calc(50% - (110px / 2));
 }
 
 button {
