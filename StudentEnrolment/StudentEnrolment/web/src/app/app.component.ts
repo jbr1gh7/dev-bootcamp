@@ -6,5 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'web';
+  title: string = 'Student Enrolment';
+  isStudent: boolean;
+  isCourse: boolean;
+  isSubject: boolean;
+
+  constructor() {
+    this.isStudent = true;
+    this.isCourse = false;
+    this.isSubject = false;
+  }
 }
