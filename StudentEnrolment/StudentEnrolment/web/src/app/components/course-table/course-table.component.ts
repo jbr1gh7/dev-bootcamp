@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CourseCrudService } from 'src/app/services/course-crud.service';
 
 @Component({
   selector: 'app-course-table',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CourseTableComponent implements OnInit {
 
-  constructor() { }
+  constructor(private courseCrud: CourseCrudService) { }
 
   ngOnInit(): void {
+    this.courseCrud.list()
   }
 
 }
