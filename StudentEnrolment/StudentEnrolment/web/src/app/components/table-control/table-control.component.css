@@ -1,0 +1,17 @@
+.table-control-container {
+    width: 170px;
+    margin-top: 15px;
+    margin-left: calc(50% - (170px / 2));
+}
+
+button {
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    color: #353b3c;
+    padding: 5px;
+    background-color: #EEF0F2;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+
