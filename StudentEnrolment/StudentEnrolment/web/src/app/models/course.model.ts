@@ -1,7 +1,7 @@
 import { Curriculum } from "./curriculum.model";
 
 export class Course extends Curriculum {
-    public IsPartFunded: boolean;
+    public isPartFunded: boolean;
 
     constructor(
         id: string, 
@@ -11,6 +11,6 @@ export class Course extends Curriculum {
     )
     {
         super(id, name, description);
-        this.IsPartFunded = isPartFunded
+        this.isPartFunded = isPartFunded
     }
 }

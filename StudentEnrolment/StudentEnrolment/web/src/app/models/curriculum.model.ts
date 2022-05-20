@@ -1,8 +1,8 @@
 import { IdBase } from "./id-base.model";
 
 export class Curriculum extends IdBase {
-    public Name: string;
-    public Description: string;
+    public name: string;
+    public description: string;
 
     constructor(
         id: string, 
@@ -10,7 +10,7 @@ export class Curriculum extends IdBase {
         description: string
     ) {
         super(id);
-        this.Name = name;
-        this.Description = description;
+        this.name = name;
+        this.description = description;
     }
 }

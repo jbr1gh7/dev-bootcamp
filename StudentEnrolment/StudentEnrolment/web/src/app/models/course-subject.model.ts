@@ -1,8 +1,8 @@
 import { IdBase } from "./id-base.model";
 
 export class CourseSubject extends IdBase {
-    public CourseId: string;
-    public SubjectId: string;
+    public courseId: string;
+    public subjectId: string;
 
     constructor(
         id: string,
@@ -11,7 +11,7 @@ export class CourseSubject extends IdBase {
     )
     {
         super(id);
-        this.CourseId = courseId;
-        this.SubjectId = subjectId;
+        this.courseId = courseId;
+        this.subjectId = subjectId;
     }
 }

@@ -1,7 +1,7 @@
 export class IdBase {
-    public Id: string;
+    public id: string;
 
     constructor(id: string) {
-        this.Id = id;
+        this.id = id;
     }
 }
