@@ -6,10 +6,10 @@
         <th>Subjects</th>
         <th class="delete-column">Delete</th>
     </tr>
-    <tr>
-        <td>Maths</td>
-        <td>Numbers and stuff</td>
-        <td>Yes</td>
+    <tr *ngFor="let row of rows">
+        <td>{{row.name}}</td>
+        <td>{{row.description}}</td>
+        <td>{{row.isPartFunded ? "Yes" : "No"}}</td>
         <td>
             <ul>
                 <li>
