@@ -13,8 +13,6 @@ namespace StudentEnrolment.Data
         public DbSet<Student> Student { get; set; }
         public DbSet<Course> Course { get; set; }
         public DbSet<Subject> Subject { get; set; }
-        public DbSet<CourseMembership> CourseMembership { get; set; }
-        public DbSet<CourseSubject> CourseSubject { get; set; }
         public EnrolmentDbContext(DbContextOptions<EnrolmentDbContext> options)
             : base(options)
         {
