@@ -1,4 +1,3 @@
-/*
 INSERT INTO Student
 VALUES 
 		("8578d292-193d-4563-a63f-06d4112c73e2", "Rosalinda", "Tamar"),
@@ -31,7 +30,7 @@ VALUES
         ("470a38b6-b3fc-4c76-94ce-9aa16c3143b6", "Svjetlana", "Philetos"),
         ("b364e409-c3e6-479a-a3da-b748e4dbcc77", "Emilija", "Lauressa"),
         ("f823107e-a8a9-4e9f-b048-beeab083cb75", "Hieronymus", "Marisa");
-   */
+   
 INSERT INTO Course
 VALUES 
 		("e2623992-cc4f-4a93-8d3a-4b36c92dab0c", 0, "Foundational Mathematics", "Mathematics (from Ancient Greek μάθημα (máthēma) 'knowledge, study, learning') is an area of knowledge, which includes the study of such topics as numbers (arithmetic and number theory), formulas and related structures (algebra), shapes and spaces in which they are contained (geometry), and quantities and their changes (calculus and analysis). There is no general consensus about its exact scope or epistemological status."),
@@ -55,7 +54,7 @@ VALUES
         ("07c357bf-0015-4f1a-a136-290f5d209eb4", "Behavioral approach", "The behavioral approach suggests that the keys to understanding development are observable behavior and external stimuli in the environment. Behaviorism is a theory of learning, and learning theories focus on how we are conditioned to respond to events or stimuli."),
         ("31f0c9de-a7b8-4fd9-bdee-eab6279eabda", "Psychodynamic approach", "The psychodynamic approach includes all the theories in psychology that see human functioning based upon the interaction of drives and forces within the person, particularly unconscious, and between the different structures of the personality."),
         ("eed7f3ac-7301-488f-b787-d798195cccd5", "Holistic approach", "The holistic approach is often referred to as Gestalt psychology. It argues that behavior cannot be understood in terms of the components that make them up. This is commonly described as ‘the whole being greater than the sum of its parts.’ In other words human behavior has its own properties that are not explicable in terms of the properties of the elements from which it is derived.");
-    
+  
 INSERT INTO CourseSubject
 VALUES 
 		("e2623992-cc4f-4a93-8d3a-4b36c92dab0c", "2e90488e-b043-405e-8c09-4407233b1d7f"),
@@ -74,7 +73,7 @@ VALUES
         ("168db569-8bdf-41bd-9e68-3b2a1bcc0a7f", "31f0c9de-a7b8-4fd9-bdee-eab6279eabda"),
         ("168db569-8bdf-41bd-9e68-3b2a1bcc0a7f", "eed7f3ac-7301-488f-b787-d798195cccd5");
         
-INSERT INTO CourseMembership
+INSERT INTO CourseStudent
 VALUES
 		("e2623992-cc4f-4a93-8d3a-4b36c92dab0c", "8578d292-193d-4563-a63f-06d4112c73e2"),
         ("e2623992-cc4f-4a93-8d3a-4b36c92dab0c", "af132444-3139-44d2-be4a-44a1c2b94fdf"),
