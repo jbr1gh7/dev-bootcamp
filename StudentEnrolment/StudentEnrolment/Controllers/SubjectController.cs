@@ -1,6 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
 using StudentEnrolment.Models;
+using StudentEnrolment.Models.BaseClasses;
+using StudentEnrolment.Models.DTOModels;
+using StudentEnrolment.Models.EntityModels;
+using System.Linq;
 
 namespace StudentEnrolment.Controllers
 {
@@ -20,8 +25,14 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Subject/Create")]
-        public IActionResult Create([FromBody] Subject subject)
+        public IActionResult Create([FromBody] SubjectDto subjectDto)
         {
+            Subject subject = new Subject(
+                subjectDto.Id,
+                subjectDto.Name,
+                subjectDto.Description
+            );
+
             try
             {
                 _db.Subject.Add(subject);

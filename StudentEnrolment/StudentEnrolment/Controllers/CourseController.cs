@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
-using StudentEnrolment.Models;
+using StudentEnrolment.Models.BaseClasses;
+using StudentEnrolment.Models.DTOModels;
+using StudentEnrolment.Models.EntityModels;
 
 namespace StudentEnrolment.Controllers
 {
@@ -15,22 +18,33 @@ namespace StudentEnrolment.Controllers
         [HttpGet("Course/List")]
         public List<Course> List()
         {
-            List<Course> itemList = _db.Course.ToList();
+            List<Course> itemList = _db.Course
+                                    .Include(c => c.CourseSubject)
+                                    .ThenInclude(cs => cs.Subject)
+                                    .ToList();
+               
             return itemList;
         }
 
         [HttpPost("Course/Create")]
-        public IActionResult Create([FromBody] Course course)
+        public IActionResult Create([FromBody] CourseDto courseDto)
         {
+            Course course = new Course(
+                courseDto.Id,
+                courseDto.Name,
+                courseDto.Description,
+                courseDto.IsPartFunded
+            );
+
             try
             {
-                _db.Course.Add(course);
+                _db.AddRange(course, courseDto.Subjects, courseDto.Students);
                 _db.SaveChanges();
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.ToString());
             }
         }
 

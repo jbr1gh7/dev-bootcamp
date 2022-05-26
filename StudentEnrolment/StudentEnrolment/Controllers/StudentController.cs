@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using StudentEnrolment.Data;
 using StudentEnrolment.Models;
+using StudentEnrolment.Models.BaseClasses;
+using StudentEnrolment.Models.DTOModels;
+using StudentEnrolment.Models.EntityModels;
 
 namespace StudentEnrolment.Controllers
 {
@@ -21,8 +24,14 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Student/Create")]
-        public IActionResult Create([FromBody] Student student)
+        public IActionResult Create([FromBody] StudentDto studentDto)
         {
+            Student student = new Student(
+                studentDto.Id,
+                studentDto.FirstName,
+                studentDto.LastName
+            );
+
             try
             {
                 _db.Student.Add(student);
