@@ -1,19 +1,27 @@
 <table>
     <tr>
         <th>Name</th>
-        <th>Description</th>
+        <th class="course-desc-col">Description</th>
         <th>Funding</th>
         <th>Subjects</th>
+        <th>Students</th>
         <th class="delete-column">Delete</th>
     </tr>
     <tr *ngFor="let row of rows">
         <td>{{row.name}}</td>
-        <td>{{row.description}}</td>
+        <td class="course-desc-col">{{row.description}}</td>
         <td>{{row.isPartFunded ? "Yes" : "No"}}</td>
         <td>
             <ul>
-                <li *ngFor="let subject of row.courseSubject">
-                    {{subject.subject.name}}
+                <li *ngFor="let courseSubject of row.courseSubject">
+                    {{courseSubject.subject.name}}
+                </li>
+            </ul>
+        </td>
+        <td>
+            <ul>
+                <li *ngFor="let courseStudent of row.courseStudent">
+                    {{courseStudent.student.firstName + " " + courseStudent.student.lastName}}
                 </li>
             </ul>
         </td>
