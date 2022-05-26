@@ -12,14 +12,8 @@
         <td>{{row.isPartFunded ? "Yes" : "No"}}</td>
         <td>
             <ul>
-                <li>
-                    Trigonometry
-                </li>
-                <li>
-                    Graphs
-                </li>
-                <li>
-                    Statistics
+                <li *ngFor="let subject of row.courseSubject">
+                    {{subject.subject.name}}
                 </li>
             </ul>
         </td>
