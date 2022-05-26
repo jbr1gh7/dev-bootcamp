@@ -21,6 +21,8 @@ namespace StudentEnrolment.Controllers
             List<Course> itemList = _db.Course
                                     .Include(c => c.CourseSubject)
                                     .ThenInclude(cs => cs.Subject)
+                                    .Include(c => c.CourseStudent)
+                                    .ThenInclude(cs => cs.Student)
                                     .ToList();
                
             return itemList;
