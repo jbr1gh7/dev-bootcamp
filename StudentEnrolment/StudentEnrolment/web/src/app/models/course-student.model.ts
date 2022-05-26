@@ -1,26 +1,27 @@
-import { Subject } from "./subject.model";
 import { Course } from "./course.model";
 import { IdBase } from "./id-base.model";
+import { Student } from "./student.model";
 
-export class CourseSubject extends IdBase {
+export class CourseStudent extends IdBase {
     public courseId: string;
     public course: Course;
 
-    public subjectId: string;
-    public subject: Subject;
+    public studentId: string;
+    public student: Student;
 
     constructor(
         id: string,
         courseId: string,
         course: Course,
-        subjectId: string,
-        subject: Subject
+        studentId: string,
+        student: Student
     )
     {
         super(id);
         this.courseId = courseId;
         this.course = course;
-        this.subjectId = subjectId;
-        this.subject = subject;
+
+        this.studentId = studentId;
+        this.student = student;
     }
 }
