@@ -1,14 +1,25 @@
 <table>
     <tr>
         <th>Name</th>
-        <th>Description</th>
+        <th class="course-desc-column">Description</th>
         <th>Course</th>
         <th class="delete-column">Delete</th>
     </tr>
-    <tr>
-        <td>Statistics</td>
-        <td>Data and graphs and such</td>
-        <td>Maths</td>
-        <td class="delete-column"><input type="checkbox"></td>
+    <tr *ngFor="let row of rows">
+        <td>{{row.name}}</td>
+        <td class="course-desc-column">{{row.description}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let courseSubject of row.courseSubject">
+                    {{courseSubject.course.name}}
+                </li>
+            </ul>
+        </td>
+        <td class="delete-column">
+            <input type="checkbox" 
+                #deleteCheck
+                (change)="select(row.id, $event)"
+            >
+        </td>
     </tr>
 </table>

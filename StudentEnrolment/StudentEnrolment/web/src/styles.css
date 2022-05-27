@@ -38,3 +38,7 @@ th {
 .delete-column {
     width: 10px;
 }
+
+.course-desc-column {
+    max-width: 700px;
+}

@@ -5,10 +5,16 @@
         <th>Courses</th>
         <th class="delete-column">Delete</th>
     </tr>
-    <tr>
-        <td>Alfred</td>
-        <td>Jones</td>
-        <td>Maths</td>
+    <tr *ngFor="let row of rows">
+        <td>{{row.firstName}}</td>
+        <td>{{row.lastName}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let courseStudent of row.courseStudent">
+                    {{courseStudent.course.name}}
+                </li>
+            </ul>
+        </td>
         <td class="delete-column"><input type="checkbox"></td>
     </tr>
 </table>
