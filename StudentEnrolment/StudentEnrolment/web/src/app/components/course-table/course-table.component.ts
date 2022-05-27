@@ -17,8 +17,6 @@ export class CourseTableComponent implements OnInit {
     .subscribe(
       (result: Course[]) => {
         this.rows = result;
-        console.log(this.rows);
-        console.log(this.rows[0].description)
       },
       (error: any) => {
         console.log(error);
