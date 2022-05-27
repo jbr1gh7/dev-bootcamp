@@ -20,7 +20,10 @@ namespace StudentEnrolment.Controllers
         [HttpGet("Subject/List")]
         public List<Subject> List()
         {
-            List<Subject> itemList = _db.Subject.ToList();
+            List<Subject> itemList = _db.Subject
+                                    .Include(c => c.CourseSubject)
+                                    .ThenInclude(cs => cs.Course)
+                                    .ToList();
             return itemList;
         }
 

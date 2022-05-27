@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
 using StudentEnrolment.Models;
 using StudentEnrolment.Models.BaseClasses;
@@ -19,7 +20,10 @@ namespace StudentEnrolment.Controllers
         [HttpGet("Student/List")]
         public List<Student> List()
         {
-            List<Student> itemList = _db.Student.ToList();
+            List<Student> itemList = _db.Student
+                                    .Include(c => c.CourseStudent)
+                                    .ThenInclude(cs => cs.Course)
+                                    .ToList();
             return itemList;
         }
 
