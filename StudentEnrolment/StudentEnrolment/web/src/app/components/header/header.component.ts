@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +7,7 @@ import { EventBusService } from 'src/app/services/event-bus.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private eventBus: EventBusService) { }
+  constructor() { }
 
   ngOnInit(): void {
 

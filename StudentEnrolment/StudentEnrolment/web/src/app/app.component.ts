@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { EventBusService } from './services/event-bus.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,7 @@ import { EventBusService } from './services/event-bus.service';
 export class AppComponent {
   title: string = 'Student Enrolment';
 
-  constructor(private eventBus: EventBusService) {
+  constructor() {
 
   }
 }
