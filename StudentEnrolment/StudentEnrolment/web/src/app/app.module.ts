@@ -9,6 +9,7 @@ import { StudentTableComponent } from './components/student-table/student-table.
 import { TableControlComponent } from './components/table-control/table-control.component';
 import { CourseTableComponent } from './components/course-table/course-table.component';
 import { SubjectTableComponent } from './components/subject-table/subject-table.component';
+import { DeleteCellComponent } from './components/delete-cell/delete-cell.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SubjectTableComponent } from './components/subject-table/subject-table.
     TableControlComponent,
     CourseTableComponent,
     SubjectTableComponent,
+    DeleteCellComponent,
   ],
   imports: [
     BrowserModule,

@@ -16,10 +16,7 @@
             </ul>
         </td>
         <td class="delete-column">
-            <input type="checkbox" 
-                #deleteCheck
-                (change)="select(row.id, $event)"
-            >
+            <app-delete-cell [row]="row"></app-delete-cell>
         </td>
     </tr>
 </table>
