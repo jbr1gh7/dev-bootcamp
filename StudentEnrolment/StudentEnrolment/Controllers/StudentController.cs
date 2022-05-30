@@ -49,23 +49,32 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Student/Delete")]
-        public IActionResult Delete([FromBody] IdBase student)
+        public IActionResult Delete([FromBody] List<IdBase> students)
         {
-            Student foundStudent = _db.Student.FirstOrDefault(x => x.Id == student.Id);
-            if (foundStudent != null)
+            if (students == null)
+                return BadRequest("subjects is null");
+
+            for (int i = 0; i < students.Count; i++)
             {
-                try
+                Student foundStudent = _db.Student.FirstOrDefault(s => s.Id == students[i].Id);
+                if (foundStudent != null)
                 {
-                    _db.Student.Remove(foundStudent);
-                    _db.SaveChanges();
-                    return Ok();
+                    try
+                    {
+                        _db.Student.Remove(foundStudent);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return BadRequest(ex);
+                    return BadRequest("Id not found");
                 }
             }
-            return BadRequest();
+            _db.SaveChanges();
+            return Ok();
         }
     }
 }
