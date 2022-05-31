@@ -12,6 +12,7 @@ export class AddRowComponent implements OnInit {
   dropdownList: any = [];
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
+  courseList: Course[] = [];
 
   constructor(
     private courseCrud: CourseCrudService
@@ -21,8 +22,10 @@ export class AddRowComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     this.courseCrud.list().subscribe(
       (result: any) => {
+        this.courseList = result;
         let dropdownFromDb = [];
 
         for (let i = 0; i < result.length; i++) {
@@ -36,8 +39,7 @@ export class AddRowComponent implements OnInit {
         }
 
         this.dropdownList = dropdownFromDb;
-
-        console.log(this.dropdownList)
+        console.log(this.dropdownList);
       },
       (error: any) => {
         console.log(error);
@@ -55,11 +57,11 @@ export class AddRowComponent implements OnInit {
     };
   }
 
-  onItemSelect(item: any) {
-    console.log(item);
+  onItemSelect() {
+    console.log(this.selectedItems)
   }
 
-  onSelectAll(items: any) {
-    console.log(items);
+  onSelectAll() {
+    console.log(this.selectedItems);
   }
 }
