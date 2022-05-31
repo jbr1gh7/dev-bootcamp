@@ -1,0 +1,20 @@
+<td>
+    <textarea></textarea>
+</td>
+<td>
+    <textarea></textarea>
+</td>
+<td class="course-select-dropdown">
+    <ng-multiselect-dropdown
+    [placeholder]="'Select course(s)'"
+    [settings]="dropdownSettings"
+    [data]="dropdownList"
+    (ngModel)="selectedItems"
+    (onSelect)="onItemSelect($event)"
+    (onSelectAll)="onSelectAll($event)"
+    >
+    </ng-multiselect-dropdown>
+</td>
+<td class="cancel-add-button">
+    ╳
+</td>
