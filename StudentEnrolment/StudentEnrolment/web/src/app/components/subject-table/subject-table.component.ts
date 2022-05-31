@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Subject } from 'src/app/models/subject.model';
 import { IdBase } from 'src/app/models/id-base.model';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
+import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
   selector: 'app-subject-table',
@@ -11,8 +12,15 @@ import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 export class SubjectTableComponent implements OnInit {
   rows: Subject[] = [];
   selectState: IdBase[] = [];
+  isAdding: boolean = false;
 
-  constructor(private subjectCrud: SubjectCrudService) { }
+  constructor(
+    private subjectCrud: SubjectCrudService,
+    private eventBus: EventBusService
+  ) 
+  {
+    this.eventBus.isAddingEvent.subscribe((adding: boolean) => this.isAdding = adding); 
+  }
 
   ngOnInit(): void {
     this.subjectCrud.list()

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IdBase } from 'src/app/models/id-base.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
+import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 
@@ -17,6 +18,7 @@ export class TableControlComponent implements OnInit {
     private studentCrud: StudentCrudService,
     private courseCrud: CourseCrudService,
     private subjectCrud: SubjectCrudService,
+    private eventBus: EventBusService,
     private router: Router
   ) 
   {
@@ -30,6 +32,7 @@ export class TableControlComponent implements OnInit {
   }
 
   add(): void {
+    this.eventBus.showHideRow(true);
     if (this.router.url == "/Students") {
       
     }

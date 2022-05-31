@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Course } from 'src/app/models/course.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
+import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
   selector: '[app-add-row]',
@@ -13,12 +14,13 @@ export class AddRowComponent implements OnInit {
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
   courseList: Course[] = [];
+  isAdding: boolean = false;
 
   constructor(
-    private courseCrud: CourseCrudService
+    private courseCrud: CourseCrudService,
+    private eventBus: EventBusService
   ) 
   { 
-
   }
 
   ngOnInit(): void {
@@ -29,7 +31,6 @@ export class AddRowComponent implements OnInit {
         let dropdownFromDb = [];
 
         for (let i = 0; i < result.length; i++) {
-          
           dropdownFromDb.push(
             {
               item_id: i + 1,
@@ -63,5 +64,9 @@ export class AddRowComponent implements OnInit {
 
   onSelectAll() {
     console.log(this.selectedItems);
+  }
+
+  cancelAdd() {
+    this.eventBus.showHideRow(false);
   }
 }
