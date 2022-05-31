@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { Course } from 'src/app/models/course.model';
+import { CourseCrudService } from 'src/app/services/course-crud.service';
 
 @Component({
   selector: '[app-add-row]',
@@ -11,30 +13,45 @@ export class AddRowComponent implements OnInit {
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
 
-  constructor() { }
+  constructor(
+    private courseCrud: CourseCrudService
+  ) 
+  { 
+
+  }
 
   ngOnInit(): void {
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
+    this.courseCrud.list().subscribe(
+      (result: any) => {
+        let dropdownFromDb = [];
 
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
+        for (let i = 0; i < result.length; i++) {
+          
+          dropdownFromDb.push(
+            {
+              item_id: i + 1,
+              item_text: result[i].name
+            }
+          );
+        }
+
+        this.dropdownList = dropdownFromDb;
+
+        console.log(this.dropdownList)
+      },
+      (error: any) => {
+        console.log(error);
+      }
+    );
     
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
       selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      unSelectAllText: 'Deselect All',
       itemsShowLimit: 0,
-      allowSearchFilter: true
+      allowSearchFilter: true,
     };
   }
 
