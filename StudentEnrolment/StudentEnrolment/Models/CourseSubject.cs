@@ -9,16 +9,13 @@ using System.Threading.Tasks;
 
 namespace StudentEnrolment.Models
 {
-    public class CourseSubject
+    public class CourseSubject : IdBase
     {
-        [Column(TypeName = "varchar(36)")]
-        [Required(ErrorMessage = "Id field is required.")]
-        public string Id { get; set; }
-        [ForeignKey("Course")]
+        [ForeignKey("CourseId")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "CourseId field is required.")]
         public string CourseId { get; set; }
-        [ForeignKey("Subject")]
+        [ForeignKey("SubjectId")]
         [Column(TypeName = "varchar(36)")]
         [Required(ErrorMessage = "SubjectId field is required.")]
         public string SubjectId { get; set; }

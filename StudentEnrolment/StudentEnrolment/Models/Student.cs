@@ -1,5 +1,4 @@
-﻿using StudentEnrolment.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,11 +8,8 @@ using System.Threading.Tasks;
 
 namespace StudentEnrolment.Models
 {
-    public class Student : IdInterface
+    public class Student : IdBase
     {
-        [Column(TypeName = "varchar(36)")]
-        [Required(ErrorMessage = "Id field is required.")]
-        public string Id { get; set; }
         [Column(TypeName = "varchar(40)")]
         [Required(ErrorMessage = "FirstName field is required.")]
         public string FirstName { get; set; }

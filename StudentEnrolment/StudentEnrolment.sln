@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31728.308
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrolment", "StudentEnrolment\StudentEnrolment.csproj", "{D913CB17-F066-42D5-9A0E-57262DD12A07}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrolment", "StudentEnrolment\StudentEnrolment.csproj", "{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D913CB17-F066-42D5-9A0E-57262DD12A07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D913CB17-F066-42D5-9A0E-57262DD12A07}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D913CB17-F066-42D5-9A0E-57262DD12A07}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D913CB17-F066-42D5-9A0E-57262DD12A07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {61E04AFA-9C82-4F8B-BEF3-113832BEEAC9}
+		SolutionGuid = {47BAEE74-8DC1-49F9-AF5D-785552B22B55}
 	EndGlobalSection
 EndGlobal
