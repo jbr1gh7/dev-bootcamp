@@ -7,6 +7,13 @@
     margin-top: -10px;
 }
 
+.link-active {
+    border: 1px solid #EEF0F2;
+    border-radius: 5px;
+    padding: 7px;
+}
+
 button {
     margin-right: 15px;
 }
+
