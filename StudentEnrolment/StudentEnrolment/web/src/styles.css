@@ -35,6 +35,12 @@ th {
     text-align: left;
 }
 
+textarea {
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
 .delete-column {
     width: 10px;
 }
@@ -43,9 +49,11 @@ th {
     max-width: 700px;
 }
 
-textarea {
-    width: 100%;
-    outline: none;
-    border: none;
+.dropdown {
+    padding-right: 35px;
+    min-width: 300px;
 }
 
+.cancel-add-button:hover {
+    cursor: pointer;
+}

@@ -12,6 +12,7 @@ export class MultiselectComponent implements OnInit {
   selectedItems: any = [];
   dropdownSettings: IDropdownSettings = {};
   courseList: Course[] = [];
+  placeholder: string = '';
 
   constructor(
   ) { }
@@ -23,20 +24,22 @@ export class MultiselectComponent implements OnInit {
       textField: 'item_text',
       selectAllText: 'Select All',
       unSelectAllText: 'Deselect All',
-      itemsShowLimit: 0,
+      itemsShowLimit: 3,
       allowSearchFilter: true,
     };
   }
 
-  populateCheckboxes(rowList: any[], isTypeStudent: boolean): void {
+  populateCheckboxes(rowList: any[], type: string): void {
     this.courseList = rowList;
     let dropdownFromDb = [];
+    this.placeholder = `Select ${type}(s)`
+
 
     for (let i = 0; i < rowList.length; i++) {
       let text;
 
-      if (isTypeStudent)
-        text = rowList[i].firstName;
+      if (type == 'student')
+        text = rowList[i].firstName + ' ' + rowList[i].lastName;
       else
         text = rowList[i].name;
 

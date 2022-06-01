@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MultiSelectComponent } from 'ng-multiselect-dropdown';
 import { Course } from 'src/app/models/course.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
@@ -17,7 +16,9 @@ export class AddSubjectRowComponent implements OnInit {
     private eventBus: EventBusService,
     private courseCrud: CourseCrudService
   ) 
-  { }
+  { 
+
+  }
 
   ngOnInit(): void {
   }
@@ -30,7 +31,7 @@ export class AddSubjectRowComponent implements OnInit {
     this.courseCrud.list()
     .subscribe(
       (result: Course[]) => {
-        this.multiselect.populateCheckboxes(result, false);
+        this.multiselect.populateCheckboxes(result, 'course');
       },
       (error: any) => {
         console.log(error);
