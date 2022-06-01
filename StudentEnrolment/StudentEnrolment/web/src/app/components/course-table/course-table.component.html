@@ -7,6 +7,7 @@
         <th>Students</th>
         <th class="delete-column">Delete</th>
     </tr>
+    <tr app-add-course-row *ngIf="isAdding"></tr>
     <tr *ngFor="let row of rows">
         <td>{{row.name}}</td>
         <td class="course-desc-col">{{row.description}}</td>
