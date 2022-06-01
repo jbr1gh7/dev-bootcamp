@@ -25,10 +25,6 @@ export class MultiselectComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //pass list of entities to this component
-    //pass list into populateCheckboxes()
-    //for course table, there will need to be 2 multiselect
-
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
