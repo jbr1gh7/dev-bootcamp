@@ -12,7 +12,9 @@ import { TableControlComponent } from './components/table-control/table-control.
 import { CourseTableComponent } from './components/course-table/course-table.component';
 import { SubjectTableComponent } from './components/subject-table/subject-table.component';
 import { DeleteCellComponent } from './components/delete-cell/delete-cell.component';
-import { AddRowComponent } from './components/add-row/add-row.component';
+import { AddSubjectRowComponent } from './components/add-subject-row/add-subject-row.component';
+import { AddCourseRowComponent } from './components/add-course-row/add-course-row.component';
+import { MultiselectComponent } from './components/multiselect/multiselect.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AddRowComponent } from './components/add-row/add-row.component';
     CourseTableComponent,
     SubjectTableComponent,
     DeleteCellComponent,
-    AddRowComponent,
+    AddSubjectRowComponent,
+    AddCourseRowComponent,
+    MultiselectComponent,
   ],
   imports: [
     BrowserModule,
