@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddRowComponent } from './add-row.component';
+import { AddSubjectRowComponent } from './add-subject-row.component';
 
-describe('AddRowComponent', () => {
-  let component: AddRowComponent;
-  let fixture: ComponentFixture<AddRowComponent>;
+describe('AddSubjectRowComponent', () => {
+  let component: AddSubjectRowComponent;
+  let fixture: ComponentFixture<AddSubjectRowComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddRowComponent ]
+      declarations: [ AddSubjectRowComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddRowComponent);
+    fixture = TestBed.createComponent(AddSubjectRowComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
