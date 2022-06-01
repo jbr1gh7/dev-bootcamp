@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Course } from 'src/app/models/course.model';
-import { CourseCrudService } from 'src/app/services/course-crud.service';
-import { StudentCrudService } from 'src/app/services/student-crud.service';
-import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 
 @Component({
   selector: 'app-multiselect',
@@ -18,10 +14,6 @@ export class MultiselectComponent implements OnInit {
   courseList: Course[] = [];
 
   constructor(
-    private studentCrud: StudentCrudService,
-    private courseCrud: CourseCrudService,
-    private subjectCrud: SubjectCrudService,
-    private router: Router
   ) { }
 
   ngOnInit(): void {
