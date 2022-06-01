@@ -37,11 +37,11 @@ export class DeleteCellComponent implements OnInit {
     if (event.target.checked === false) 
       this.selectState = this.selectState.filter((item) => item.id !== idBase.id);
 
-    if (this.router.url == "/Students") 
+    if (this.router.url == '/Students') 
       crud = this.studentCrud
-    else if (this.router.url == "/Courses") 
+    else if (this.router.url == '/Courses') 
       crud = this.courseCrud
-    else if (this.router.url == "/Subjects") 
+    else if (this.router.url == '/Subjects') 
       crud = this.subjectCrud
     else
       return;
