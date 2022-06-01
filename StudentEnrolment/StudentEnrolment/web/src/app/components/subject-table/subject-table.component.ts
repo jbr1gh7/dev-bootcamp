@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Subject } from 'src/app/models/subject.model';
 import { IdBase } from 'src/app/models/id-base.model';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
@@ -7,7 +7,7 @@ import { EventBusService } from 'src/app/services/event-bus.service';
 @Component({
   selector: 'app-subject-table',
   templateUrl: './subject-table.component.html',
-  styleUrls: ['./subject-table.component.css']
+  styleUrls: ['./subject-table.component.css'],
 })
 export class SubjectTableComponent implements OnInit {
   rows: Subject[] = [];
@@ -16,10 +16,16 @@ export class SubjectTableComponent implements OnInit {
 
   constructor(
     private subjectCrud: SubjectCrudService,
-    private eventBus: EventBusService
+    private eventBus: EventBusService,
+    //private router: Router
   ) 
   {
     this.eventBus.isAddingEvent.subscribe((adding: boolean) => this.isAdding = adding); 
+    /*this.router.events.subscribe((ev) => {
+      if (ev instanceof NavigationEnd) {
+        this.eventBus.showHideRow(false);
+      }
+    });*/
   }
 
   ngOnInit(): void {
