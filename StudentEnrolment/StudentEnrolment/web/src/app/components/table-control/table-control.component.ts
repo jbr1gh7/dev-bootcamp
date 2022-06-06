@@ -41,14 +41,19 @@ export class TableControlComponent implements OnInit {
   save(): void {
     let crud;
 
-    if (this.router.url == '/Students') 
-      crud = this.studentCrud
-    else if (this.router.url == '/Courses') 
-      crud = this.courseCrud
-    else if (this.router.url == '/Subjects') 
-      crud = this.subjectCrud
-    else
-      return;
+    switch(this.router.url) {
+      case '/Students':
+        crud = this.studentCrud;
+        break;
+      case '/Courses':
+        crud = this.courseCrud;
+        break;
+      case '/Subjects':
+        crud = this.subjectCrud;
+        break;
+      default:
+        return;
+    }
 
     console.log('deleteList: ', this.deleteList);
 
