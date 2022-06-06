@@ -16,16 +16,10 @@ export class SubjectTableComponent implements OnInit {
 
   constructor(
     private subjectCrud: SubjectCrudService,
-    private eventBus: EventBusService,
-    //private router: Router
+    private eventBus: EventBusService
   ) 
   {
     this.eventBus.isAddingEvent.subscribe((adding: boolean) => this.isAdding = adding); 
-    /*this.router.events.subscribe((ev) => {
-      if (ev instanceof NavigationEnd) {
-        this.eventBus.showHideRow(false);
-      }
-    });*/
   }
 
   ngOnInit(): void {

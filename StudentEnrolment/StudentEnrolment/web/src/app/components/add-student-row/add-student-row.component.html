@@ -1,1 +1,12 @@
-<p>add-student-row works!</p>
+<td>
+    <textarea placeholder="Enter first name"></textarea>
+</td>
+<td>
+    <textarea placeholder="Enter last name"></textarea>
+</td>
+<td class="dropdown">
+    <app-multiselect #courseMultiselect></app-multiselect>
+</td>
+<td class="cancel-add-button" (click)="cancelAdd()">
+    ✕
+</td>
