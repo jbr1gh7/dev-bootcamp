@@ -17,11 +17,20 @@ export class StudentCrudService {
     return this.http.get<Student[]>('https://localhost:7187/Student/List');
   }
 
-  delete(body: IdBase[]): any {
-    return this.http.post<IdBase[]>('https://localhost:7187/Student/Delete', body)
+  delete(): any {
+    return this.http.post<IdBase[]>('https://localhost:7187/Student/Delete', this.deleteListSource.getValue())
   }
 
-  passList(list: IdBase[]): void {
-    this.deleteListSource.next(list);
+  pushToDeleteList(idBase: IdBase): void {
+    this.deleteListSource.getValue().push(idBase);
+    console.log(this.deleteListSource.getValue());
+  }
+
+  removeFromDeleteList(idBase: IdBase): void {
+    let updatedList = this.deleteListSource.getValue();
+    updatedList = updatedList.filter((item) => item.id !== idBase.id); 
+
+    this.deleteListSource.next(updatedList);
+    console.log(this.deleteListSource.getValue());
   }
 }
