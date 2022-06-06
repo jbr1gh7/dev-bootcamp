@@ -55,7 +55,7 @@ export class TableControlComponent implements OnInit {
     crud.delete().subscribe(
       (result: any) => {
         console.log(result);
-        //window.location.reload();
+        window.location.reload();
       },
       (error: any) => {
         console.log(error);
