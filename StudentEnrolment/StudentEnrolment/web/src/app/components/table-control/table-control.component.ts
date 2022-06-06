@@ -13,6 +13,7 @@ import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 })
 export class TableControlComponent implements OnInit {
   deleteList: IdBase[] = [];
+  selectionList: any[] = [];
 
   constructor(
     private studentCrud: StudentCrudService,
@@ -26,11 +27,12 @@ export class TableControlComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.eventBus.selectionList.subscribe((list) => this.selectionList = list); 
   }
 
   add(): void {
     this.eventBus.showHideRow(true);
+    console.log(this.selectionList);
     if (this.router.url == '/Students') {
       
     }

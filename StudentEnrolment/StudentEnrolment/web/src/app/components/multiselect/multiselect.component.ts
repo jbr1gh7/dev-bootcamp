@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Course } from 'src/app/models/course.model';
+import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({
   selector: 'app-multiselect',
@@ -15,7 +16,11 @@ export class MultiselectComponent implements OnInit {
   placeholder: string = '';
 
   constructor(
-  ) { }
+    private eventBus: EventBusService
+  ) 
+  {
+
+  }
 
   ngOnInit(): void {
     this.dropdownSettings = {
@@ -34,7 +39,6 @@ export class MultiselectComponent implements OnInit {
     let dropdownFromDb = [];
     this.placeholder = `Select ${type}(s)`
 
-
     for (let i = 0; i < rowList.length; i++) {
       let text;
 
@@ -45,7 +49,7 @@ export class MultiselectComponent implements OnInit {
 
       dropdownFromDb.push(
         {
-          item_id: i + 1,
+          item_id: rowList[i].id,
           item_text: text
         }
       );
@@ -56,10 +60,10 @@ export class MultiselectComponent implements OnInit {
   }
 
   onItemSelect() {
-    console.log(this.selectedItems)
+    this.eventBus.passSelectionList(this.selectedItems);
   }
 
   onSelectAll() {
-    console.log(this.selectedItems);
+    this.eventBus.passSelectionList(this.selectedItems);
   }
 }
