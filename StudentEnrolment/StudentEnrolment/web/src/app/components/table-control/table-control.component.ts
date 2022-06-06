@@ -38,9 +38,8 @@ export class TableControlComponent implements OnInit {
     }
   }
 
-  save(): void {
+  saveDelete(): void {
     let crud;
-
     switch(this.router.url) {
       case '/Students':
         crud = this.studentCrud;
@@ -66,5 +65,14 @@ export class TableControlComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  saveAdd(): void {
+    
+  }
+
+  save(): void {
+    this.saveDelete();
+    this.saveAdd();
   }
 }
