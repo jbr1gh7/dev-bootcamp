@@ -26,9 +26,7 @@ export class TableControlComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.studentCrud.deleteList.subscribe(list => this.deleteList = list);
-    this.courseCrud.deleteList.subscribe(list => this.deleteList = list);
-    this.subjectCrud.deleteList.subscribe(list => this.deleteList = list);
+
   }
 
   add(): void {
@@ -50,10 +48,12 @@ export class TableControlComponent implements OnInit {
     else
       return;
 
-    crud.delete(this.deleteList).subscribe(
+    console.log('deleteList: ', this.deleteList);
+
+    crud.delete().subscribe(
       (result: any) => {
         console.log(result);
-        window.location.reload();
+        //window.location.reload();
       },
       (error: any) => {
         console.log(error);

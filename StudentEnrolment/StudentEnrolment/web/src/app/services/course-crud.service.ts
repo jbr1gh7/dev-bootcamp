@@ -2,14 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../models/course.model';
 import { IdBase } from '../models/id-base.model';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseCrudService {
-  private deleteListSource = new BehaviorSubject<IdBase[]>([]);
-  deleteList = this.deleteListSource.asObservable();
+  deleteList: IdBase[] = [];
 
   constructor(private http: HttpClient) { }
 
@@ -17,11 +15,17 @@ export class CourseCrudService {
     return this.http.get<Course[]>('https://localhost:7187/Course/List');
   }
 
-  delete(body: IdBase[]): any {
-    return this.http.post<IdBase[]>('https://localhost:7187/Student/Delete', body)
+  delete(): any {
+    return this.http.post<IdBase[]>('https://localhost:7187/Course/Delete', this.deleteList)
   }
 
-  passList(list: IdBase[]): void {
-    this.deleteListSource.next(list);
+  pushToDeleteList(idBase: IdBase): void {
+    this.deleteList.push(idBase);
+    console.log(this.deleteList);
+  }
+
+  removeFromDeleteList(idBase: IdBase): void {
+    this.deleteList = this.deleteList.filter((item) => item.id !== idBase.id); 
+    console.log(this.deleteList);
   }
 }

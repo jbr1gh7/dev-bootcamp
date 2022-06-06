@@ -31,12 +31,6 @@ export class DeleteCellComponent implements OnInit {
     let idBase = new IdBase(idToDelete);
     let crud;
 
-    if (event.target.checked === true) 
-      this.selectState.push(idBase);
-    
-    if (event.target.checked === false) 
-      this.selectState = this.selectState.filter((item) => item.id !== idBase.id);
-
     if (this.router.url == '/Students') 
       crud = this.studentCrud
     else if (this.router.url == '/Courses') 
@@ -45,7 +39,13 @@ export class DeleteCellComponent implements OnInit {
       crud = this.subjectCrud
     else
       return;
-  
-    crud.passList(this.selectState);
+
+    if (event.target.checked === true) {
+      crud.pushToDeleteList(idBase);
+    }
+    
+    if (event.target.checked === false) {
+      crud.removeFromDeleteList(idBase);
+    }    
   }
 }
