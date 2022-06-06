@@ -5,7 +5,7 @@
         <th>Courses</th>
         <th class="delete-column">Delete</th>
     </tr>
-    <tr app-add-subject-row *ngIf="isAdding"></tr>
+    <tr app-add-student-row *ngIf="isAdding"></tr>
     <tr *ngFor="let row of rows">
         <td>{{row.firstName}}</td>
         <td>{{row.lastName}}</td>
