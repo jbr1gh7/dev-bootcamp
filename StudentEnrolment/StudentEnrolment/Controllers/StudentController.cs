@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
 using StudentEnrolment.Models;
@@ -30,15 +29,32 @@ namespace StudentEnrolment.Controllers
         [HttpPost("Student/Create")]
         public IActionResult Create([FromBody] StudentDto studentDto)
         {
+            Guid guid = Guid.NewGuid();
+
             Student student = new Student(
-                studentDto.Id,
+                guid.ToString(),
                 studentDto.FirstName,
                 studentDto.LastName
+                //studentDto.Courses
             );
 
             try
             {
                 _db.Student.Add(student);
+                
+                for (var i = 0; i < studentDto.Courses.Count; i++)
+                {
+                    studentDto.Courses[i].StudentId = guid.ToString();
+
+                    CourseStudent courseStudent = 
+                        new CourseStudent(
+                            studentDto.Courses[i].CourseId,
+                            studentDto.Courses[i].StudentId
+                        );
+
+                    _db.CourseStudent.Add(courseStudent);
+                }
+                
                 _db.SaveChanges();
                 return Ok();
             }

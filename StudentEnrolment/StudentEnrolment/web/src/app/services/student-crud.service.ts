@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IdBase } from '../models/id-base.model';
+import { StudentDto } from '../models/student-dto.model';
 import { Student } from '../models/student.model';
 
 @Injectable({
@@ -10,6 +11,10 @@ export class StudentCrudService {
   deleteList: IdBase[] = [];
 
   constructor(private http: HttpClient) { }
+
+  create(entity: StudentDto): any {
+    return this.http.post<StudentDto[]>('https://localhost:7187/Student/Create', entity);
+  }
 
   list(): any {
     return this.http.get<Student[]>('https://localhost:7187/Student/List');
