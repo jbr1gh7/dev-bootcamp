@@ -11,6 +11,8 @@ import { EventBusService } from 'src/app/services/event-bus.service';
 export class AddStudentRowComponent implements OnInit {
   courseList: Course[] = [];
   @ViewChild('courseMultiselect') multiselect: any;
+  firstName: string = '';
+  lastName: string = '';
 
   constructor(
     private eventBus: EventBusService,
@@ -21,10 +23,7 @@ export class AddStudentRowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
 
-  cancelAdd() {
-    this.eventBus.showHideRow(false);
   }
 
   ngAfterViewInit(): void {
@@ -35,6 +34,20 @@ export class AddStudentRowComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
+      }
+    )
+  }
+
+  cancelAdd() {
+    this.eventBus.showHideRow(false);
+  }
+
+  inputUpdated() {
+    console.log(this.firstName + ' ' + this.lastName);
+    this.eventBus.passInput(
+      {
+        firstName: this.firstName,
+        lastName: this.lastName
       }
     )
   }

@@ -11,13 +11,20 @@ export class EventBusService {
   private selectionListSource = new BehaviorSubject<any[]>([]);
   selectionList = this.selectionListSource.asObservable();
 
+  private inputSource = new BehaviorSubject<any>(undefined);
+  input = this.inputSource.asObservable();
+
   constructor() { }
 
   showHideRow(isAdding: boolean): void {
     this.addEventSource.next(isAdding);
   }
 
-  passSelectionList(selections: any[]) {
+  passSelectionList(selections: any[]): void {
     this.selectionListSource.next(selections);
+  }
+
+  passInput(input: any): void {
+    this.inputSource.next(input);
   }
 }
