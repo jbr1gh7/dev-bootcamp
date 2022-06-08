@@ -5,13 +5,13 @@ namespace StudentEnrolment.Models.DTOModels
 {
     public class SubjectDto : Curriculum
     {
-        public ICollection<Course>? Courses { get; set; }
+        public IList<CourseSubject>? Courses { get; set; }
 
         public SubjectDto(
             string id, 
             string name, 
-            string description, 
-            ICollection<Course>? courses
+            string description,
+            IList<CourseSubject>? courses
         )
         {
             this.Id = id;

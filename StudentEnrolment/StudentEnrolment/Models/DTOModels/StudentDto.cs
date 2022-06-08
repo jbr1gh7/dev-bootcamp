@@ -13,13 +13,13 @@ namespace StudentEnrolment.Models.DTOModels
         [Column(TypeName = "varchar(70)")]
         [Required(ErrorMessage = "LastName field is required.")]
         public string LastName { get; set; }
-        public ICollection<Course>? Courses { get; set; }
+        public IList<CourseStudent>? Courses { get; set; }
 
         public StudentDto(
             string id, 
             string firstName, 
-            string lastName, 
-            ICollection<Course>? courses
+            string lastName,
+            IList<CourseStudent>? courses
         )
         {
             this.Id = id;
