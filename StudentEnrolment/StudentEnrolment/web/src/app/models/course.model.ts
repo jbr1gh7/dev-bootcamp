@@ -1,22 +1,26 @@
-import { CourseStudent } from "./course-student.model";
-import { CourseSubject } from "./course-subject.model";
-import { Curriculum } from "./curriculum.model";
+import { CourseStudentDto } from "./course-student-dto.model";
+import { CourseSubjectDto } from "./course-subject-dto.model";
 
-export class Course extends Curriculum {
+export class Course {
+    public id: string | null;
+    public name: string;
+    public description: string;
     public isPartFunded: boolean;
-    public courseStudent: CourseStudent[];
-    public courseSubject: CourseSubject[];
+    public courseStudent: CourseStudentDto[] | null;
+    public courseSubject: CourseSubjectDto[] | null;
 
     constructor(
         id: string, 
         name: string, 
         description: string, 
         isPartFunded: boolean,
-        courseStudent: CourseStudent[],
-        courseSubject: CourseSubject[]
+        courseStudent: CourseStudentDto[] | null,
+        courseSubject: CourseSubjectDto[] | null
     )
     {
-        super(id, name, description);
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.isPartFunded = isPartFunded;
         this.courseStudent = courseStudent;
         this.courseSubject = courseSubject;

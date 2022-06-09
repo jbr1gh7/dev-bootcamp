@@ -1,6 +1,5 @@
 import { Subject } from "./subject.model";
 import { Course } from "./course.model";
-import { IdBase } from "./id-base.model";
 
 export class CourseSubject {
     public courseId: string;
