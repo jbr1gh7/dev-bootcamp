@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { Course } from 'src/app/models/course.model';
 import { EventBusService } from 'src/app/services/event-bus.service';
@@ -14,9 +15,11 @@ export class MultiselectComponent implements OnInit {
   dropdownSettings: IDropdownSettings = {};
   courseList: Course[] = [];
   placeholder: string = '';
+  type: string = '';
 
   constructor(
-    private eventBus: EventBusService
+    private eventBus: EventBusService,
+    private router: Router
   ) 
   {
 
@@ -30,11 +33,12 @@ export class MultiselectComponent implements OnInit {
       selectAllText: 'Select All',
       unSelectAllText: 'Deselect All',
       itemsShowLimit: 3,
-      allowSearchFilter: true,
+      allowSearchFilter: true
     };
   }
 
   populateCheckboxes(rowList: any[], type: string): void {
+    this.type = type;
     this.courseList = rowList;
     let dropdownFromDb = [];
     this.placeholder = `Select ${type}(s)`
@@ -59,11 +63,28 @@ export class MultiselectComponent implements OnInit {
     console.log(this.dropdownList);
   }
 
-  onItemSelect() {
+  passSelections(): void {
+    if (this.router.url == '/Courses') {
+      if (this.type == 'student') {
+        this.eventBus.passCourseStudentSelectionList(this.selectedItems);
+        return;
+      }
+      else if (this.type == 'subject') {
+        this.eventBus.passCourseSubjectSelectionList(this.selectedItems);
+        return;
+      }
+    }
+
     this.eventBus.passSelectionList(this.selectedItems);
   }
 
-  onSelectAll() {
-    this.eventBus.passSelectionList(this.selectedItems);
+  onItemSelect(): void {
+    console.log('selectedItems: ', this.selectedItems);
+    this.passSelections();
+  }
+
+  onSelectAll(): void {
+    console.log('selectedItems: ', this.selectedItems);
+    this.passSelections();
   }
 }
