@@ -10,6 +10,8 @@ import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 import { StudentDto } from 'src/app/models/student-dto.model';
+import { CourseSubjectDto } from 'src/app/models/course-subject-dto.model';
+import { CourseDto } from 'src/app/models/course-dto.model';
 
 @Component({
   selector: 'app-table-control',
@@ -19,6 +21,8 @@ import { StudentDto } from 'src/app/models/student-dto.model';
 export class TableControlComponent implements OnInit {
   deleteList: IdBase[] = [];
   selectionList: any[] = [];
+  courseStudentSelectionList: any[] = [];
+  courseSubjectSelectionList: any[] = [];
   inputObject: any = undefined;
 
   constructor(
@@ -34,6 +38,8 @@ export class TableControlComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventBus.selectionList.subscribe((list) => this.selectionList = list);
+    this.eventBus.courseStudentSelectionList.subscribe((list) => this.courseStudentSelectionList = list);
+    this.eventBus.courseSubjectSelectionList.subscribe((list) => this.courseSubjectSelectionList = list)
     this.eventBus.input.subscribe((input) => this.inputObject = input);  
   }
 
@@ -93,8 +99,40 @@ export class TableControlComponent implements OnInit {
     );
   }
 
-  formCourseEntity(): void {
-    
+  formCourseEntity(): CourseDto {
+    let students = [];
+    let subjects = [];
+
+    for (let i = 0; i < this.courseStudentSelectionList.length; i++) {
+      let studentId = this.courseStudentSelectionList[i].item_id;
+
+      students.push(
+        new CourseStudentDto(
+          null,
+          studentId
+        )
+      );
+    }
+
+    for (let i = 0; i < this.courseSubjectSelectionList.length; i++) {
+      let subjectId = this.courseSubjectSelectionList[i].item_id;
+
+      subjects.push(
+        new CourseSubjectDto(
+          null,
+          subjectId
+        )
+      );
+    }
+
+    return new CourseDto(
+      null,
+      this.inputObject.name,
+      this.inputObject.description,
+      this.inputObject.isPartFunded,
+      students,
+      subjects
+    )
   }
 
   saveAdd(): void {
@@ -111,7 +149,7 @@ export class TableControlComponent implements OnInit {
         );
         break;
       case '/Courses':
-        //crud = this.courseCrud;
+        console.log(this.formCourseEntity());
         break;
       case '/Subjects':
         //crud = this.subjectCrud;

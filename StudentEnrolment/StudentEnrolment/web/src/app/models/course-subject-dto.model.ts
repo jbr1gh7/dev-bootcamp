@@ -1,10 +1,10 @@
 export class CourseSubjectDto {
-    public courseId: string;
-    public subjectId: string;
+    public courseId: string | null;
+    public subjectId: string | null;
 
     constructor(
-        courseId: string,
-        subjectId: string,
+        courseId: string | null,
+        subjectId: string | null,
     )
     {
         this.courseId = courseId;

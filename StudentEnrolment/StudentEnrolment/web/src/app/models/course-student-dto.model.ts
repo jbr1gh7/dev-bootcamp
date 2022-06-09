@@ -1,9 +1,9 @@
 export class CourseStudentDto {
-    public courseId: string;
+    public courseId: string | null;
     public studentId: string | null;
 
     constructor(
-        courseId: string,
+        courseId: string | null,
         studentId: string | null,
     )
     {
