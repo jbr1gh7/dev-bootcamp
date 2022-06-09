@@ -1,11 +1,20 @@
 <td>
-    <textarea placeholder="Enter name"></textarea>
+    <textarea placeholder="Enter name"
+        (input)="inputUpdated()"
+        [(ngModel)]="name"
+    ></textarea>
 </td>
 <td>
-    <textarea placeholder="Enter description"></textarea>
+    <textarea placeholder="Enter description"
+        (input)="inputUpdated()"
+        [(ngModel)]="description"
+    ></textarea>
 </td>
 <td>
-    <input type="checkbox">
+    <input type="checkbox"
+        (change)="inputUpdated()"
+        [(ngModel)]="isPartFunded"
+    >
 </td>
 <td class="dropdown">
     <app-multiselect #subjectMultiselect></app-multiselect>

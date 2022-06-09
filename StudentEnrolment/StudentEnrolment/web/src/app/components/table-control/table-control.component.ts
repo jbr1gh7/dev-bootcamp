@@ -93,6 +93,10 @@ export class TableControlComponent implements OnInit {
     );
   }
 
+  formCourseEntity(): void {
+    
+  }
+
   saveAdd(): void {
     switch(this.router.url) {
       case '/Students':

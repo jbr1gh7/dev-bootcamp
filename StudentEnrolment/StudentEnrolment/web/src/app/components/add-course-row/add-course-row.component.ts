@@ -13,6 +13,9 @@ import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 export class AddCourseRowComponent implements OnInit {
   @ViewChild('subjectMultiselect') subjectMultiselect: any;
   @ViewChild('studentMultiselect') studentMultiselect: any;
+  name: string = '';
+  description: string = '';
+  isPartFunded: boolean = false;
 
   constructor(
     private eventBus: EventBusService,
@@ -24,10 +27,6 @@ export class AddCourseRowComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  }
-
-  cancelAdd() {
-    this.eventBus.showHideRow(false);
   }
 
   ngAfterViewInit(): void {
@@ -48,6 +47,21 @@ export class AddCourseRowComponent implements OnInit {
       },
       (error: any) => {
         console.log(error);
+      }
+    )
+  }
+
+  cancelAdd() {
+    this.eventBus.showHideRow(false);
+  }
+
+  inputUpdated() {
+    console.log(this.name + ' ' + this.description + ' ' + this.isPartFunded);
+    this.eventBus.passInput(
+      {
+        name: this.name,
+        description: this.description,
+        isPartFunded: this.isPartFunded
       }
     )
   }
