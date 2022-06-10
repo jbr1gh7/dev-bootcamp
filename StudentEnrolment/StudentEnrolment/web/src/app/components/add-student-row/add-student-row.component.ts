@@ -18,13 +18,9 @@ export class AddStudentRowComponent implements OnInit {
     private eventBus: EventBusService,
     private courseCrud: CourseCrudService
   ) 
-  { 
-    
-  }
+  { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.courseCrud.list()

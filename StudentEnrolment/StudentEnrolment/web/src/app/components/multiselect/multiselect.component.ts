@@ -21,9 +21,7 @@ export class MultiselectComponent implements OnInit {
     private eventBus: EventBusService,
     private router: Router
   ) 
-  {
-
-  }
+  { }
 
   ngOnInit(): void {
     this.dropdownSettings = {

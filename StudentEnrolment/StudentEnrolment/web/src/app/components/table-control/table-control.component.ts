@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CourseStudent } from 'src/app/models/course-student.model';
-import { Course } from 'src/app/models/course.model';
 import { IdBase } from 'src/app/models/id-base.model';
-import { Student } from 'src/app/models/student.model';
 import { CourseStudentDto } from 'src/app/models/course-student-dto.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
@@ -34,9 +31,7 @@ export class TableControlComponent implements OnInit {
     private eventBus: EventBusService,
     private router: Router
   ) 
-  {
-
-  }
+  { }
 
   ngOnInit(): void {
     this.eventBus.selectionList.subscribe((list) => this.selectionList = list);
@@ -211,5 +206,6 @@ export class TableControlComponent implements OnInit {
     {
       this.saveAdd();
     }
+    window.location.reload();
   }
 }

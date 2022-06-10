@@ -20,12 +20,9 @@ export class DeleteCellComponent implements OnInit {
     private subjectCrud: SubjectCrudService,
     private router: Router
   ) 
-  { 
+  { }
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   select(idToDelete: string, event: any): void {
     let idBase = new IdBase(idToDelete);

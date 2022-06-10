@@ -35,7 +35,6 @@ namespace StudentEnrolment.Controllers
                 guid.ToString(),
                 studentDto.FirstName,
                 studentDto.LastName
-                //studentDto.Courses
             );
 
             try
@@ -60,7 +59,7 @@ namespace StudentEnrolment.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 

@@ -41,8 +41,8 @@ namespace StudentEnrolment.Controllers
                 courseDto.IsPartFunded
             );
 
-            //try
-            //{
+            try
+            {
                 _db.Course.Add(course);
 
                 Console.WriteLine(courseDto.Students);
@@ -74,11 +74,11 @@ namespace StudentEnrolment.Controllers
 
                 _db.SaveChanges();
                 return Ok();
-            /*}
+            }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }*/
+            }
         }
 
         [HttpPost("Course/Delete")]

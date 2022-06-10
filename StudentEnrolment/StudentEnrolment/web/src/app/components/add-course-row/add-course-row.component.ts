@@ -22,12 +22,9 @@ export class AddCourseRowComponent implements OnInit {
     private subjectCrud: SubjectCrudService,
     private studentCrud: StudentCrudService
   ) 
-  { 
+  { }
 
-  }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.subjectCrud.list()

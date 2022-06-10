@@ -30,9 +30,5 @@ export class CourseTableComponent implements OnInit {
         console.log(error);
       }
     )
-
-
   }
-
-
 }
