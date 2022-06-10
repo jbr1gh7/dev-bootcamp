@@ -6,23 +6,23 @@ export class CourseDto {
     public name: string;
     public description: string;
     public isPartFunded: boolean;
-    public courseStudent: CourseStudentDto[] | null;
-    public courseSubject: CourseSubjectDto[] | null;
+    public students: CourseStudentDto[] | null;
+    public subjects: CourseSubjectDto[] | null;
 
     constructor(
         id: string | null, 
         name: string, 
         description: string, 
         isPartFunded: boolean,
-        courseStudent: CourseStudentDto[] | null,
-        courseSubject: CourseSubjectDto[] | null
+        students: CourseStudentDto[] | null,
+        subjects: CourseSubjectDto[] | null
     )
     {
         this.id = id;
         this.name = name;
         this.description = description;
         this.isPartFunded = isPartFunded;
-        this.courseStudent = courseStudent;
-        this.courseSubject = courseSubject;
+        this.students = students;
+        this.subjects = subjects;
     }
 }

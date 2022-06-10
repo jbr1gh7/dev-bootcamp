@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
+using StudentEnrolment.Models;
 using StudentEnrolment.Models.BaseClasses;
 using StudentEnrolment.Models.DTOModels;
 using StudentEnrolment.Models.EntityModels;
@@ -31,23 +32,53 @@ namespace StudentEnrolment.Controllers
         [HttpPost("Course/Create")]
         public IActionResult Create([FromBody] CourseDto courseDto)
         {
+            Guid guid = Guid.NewGuid();
+
             Course course = new Course(
-                courseDto.Id,
+                guid.ToString(),
                 courseDto.Name,
                 courseDto.Description,
                 courseDto.IsPartFunded
             );
 
-            try
-            {
-                _db.AddRange(course, courseDto.Subjects, courseDto.Students);
+            //try
+            //{
+                _db.Course.Add(course);
+
+                Console.WriteLine(courseDto.Students);
+                for (var i = 0; i < courseDto.Students.Count; i++)
+                {
+                    courseDto.Students[i].CourseId = guid.ToString();
+                    
+                    CourseStudent courseStudent =
+                        new CourseStudent(
+                            courseDto.Students[i].CourseId,
+                            courseDto.Students[i].StudentId
+                        );
+
+                    _db.CourseStudent.Add(courseStudent);
+                }
+                
+                for (var j = 0; j < courseDto.Subjects.Count; j++)
+                {
+                    courseDto.Subjects[j].CourseId = guid.ToString();
+
+                    CourseSubject courseSubject =
+                        new CourseSubject(
+                            courseDto.Subjects[j].CourseId,
+                            courseDto.Subjects[j].SubjectId
+                        );
+
+                    _db.CourseSubject.Add(courseSubject);
+                }
+
                 _db.SaveChanges();
                 return Ok();
-            }
+            /*}
             catch (Exception ex)
             {
-                return BadRequest(ex.ToString());
-            }
+                return BadRequest(ex.Message);
+            }*/
         }
 
         [HttpPost("Course/Delete")]

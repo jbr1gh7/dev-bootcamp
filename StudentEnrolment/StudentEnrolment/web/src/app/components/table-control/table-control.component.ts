@@ -12,6 +12,7 @@ import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 import { StudentDto } from 'src/app/models/student-dto.model';
 import { CourseSubjectDto } from 'src/app/models/course-subject-dto.model';
 import { CourseDto } from 'src/app/models/course-dto.model';
+import { SubjectDto } from 'src/app/models/subject-dto.model';
 
 @Component({
   selector: 'app-table-control',
@@ -24,6 +25,7 @@ export class TableControlComponent implements OnInit {
   courseStudentSelectionList: any[] = [];
   courseSubjectSelectionList: any[] = [];
   inputObject: any = undefined;
+  isAdding: boolean = false;
 
   constructor(
     private studentCrud: StudentCrudService,
@@ -41,6 +43,7 @@ export class TableControlComponent implements OnInit {
     this.eventBus.courseStudentSelectionList.subscribe((list) => this.courseStudentSelectionList = list);
     this.eventBus.courseSubjectSelectionList.subscribe((list) => this.courseSubjectSelectionList = list)
     this.eventBus.input.subscribe((input) => this.inputObject = input);  
+    this.eventBus.isAddingEvent.subscribe((isAdding) => this.isAdding = isAdding);  
   }
 
   add(): void {
@@ -135,10 +138,33 @@ export class TableControlComponent implements OnInit {
     )
   }
 
+  formSubjectEntity(): SubjectDto {
+    let courses = [];
+
+    for (let i = 0; i < this.selectionList.length; i++) {
+      let courseId = this.selectionList[i].item_id;
+
+      courses.push(
+        new CourseSubjectDto(
+          courseId,
+          null,
+        )
+      );
+    }
+
+    return new SubjectDto(
+      null, 
+      this.inputObject.name, 
+      this.inputObject.description, 
+      courses
+    );
+  }
+
   saveAdd(): void {
     switch(this.router.url) {
       case '/Students':
-        this.studentCrud.create(this.formStudentEntity())
+        let student = this.formStudentEntity();
+        this.studentCrud.create(student)
         .subscribe(
           (result: any) => {
             console.log(result);
@@ -149,10 +175,30 @@ export class TableControlComponent implements OnInit {
         );
         break;
       case '/Courses':
-        console.log(this.formCourseEntity());
+        let course = this.formCourseEntity();
+        console.log(course);
+        this.courseCrud.create(course)
+        .subscribe(
+          (result: any) => {
+            console.log(result);
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );
         break;
       case '/Subjects':
-        //crud = this.subjectCrud;
+        let subject = this.formSubjectEntity();
+        console.log(subject);
+        this.subjectCrud.create(subject)
+        .subscribe(
+          (result: any) => {
+            console.log(result);
+          },
+          (error: any) => {
+            console.log(error);
+          }
+        );        
         break;
       default:
         return;
@@ -161,6 +207,9 @@ export class TableControlComponent implements OnInit {
 
   save(): void {
     this.saveDelete();
-    this.saveAdd();
+    if (this.isAdding)
+    {
+      this.saveAdd();
+    }
   }
 }

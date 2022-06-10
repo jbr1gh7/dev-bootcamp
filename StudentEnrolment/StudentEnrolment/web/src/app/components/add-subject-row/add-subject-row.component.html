@@ -1,8 +1,16 @@
 <td>
-    <textarea placeholder="Enter name"></textarea>
+    <textarea 
+        placeholder="Enter name"
+        (input)="inputUpdated()"
+        [(ngModel)]="name"
+    ></textarea>
 </td>
 <td>
-    <textarea placeholder="Enter description"></textarea>
+    <textarea 
+        placeholder="Enter description"
+        (input)="inputUpdated()"
+        [(ngModel)]="description"    
+    ></textarea>
 </td>
 <td class="dropdown">
     <app-multiselect #courseMultiselect></app-multiselect>

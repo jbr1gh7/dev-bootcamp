@@ -30,8 +30,10 @@ namespace StudentEnrolment.Controllers
         [HttpPost("Subject/Create")]
         public IActionResult Create([FromBody] SubjectDto subjectDto)
         {
+            Guid guid = Guid.NewGuid();
+
             Subject subject = new Subject(
-                subjectDto.Id,
+                guid.ToString(),
                 subjectDto.Name,
                 subjectDto.Description
             );
@@ -39,12 +41,26 @@ namespace StudentEnrolment.Controllers
             try
             {
                 _db.Subject.Add(subject);
+
+                for (var i = 0; i < subjectDto.Courses.Count; i++)
+                {
+                    subjectDto.Courses[i].SubjectId = guid.ToString();
+
+                    CourseSubject courseSubject =
+                        new CourseSubject(
+                            subjectDto.Courses[i].CourseId,
+                            subjectDto.Courses[i].SubjectId
+                        );
+
+                    _db.CourseSubject.Add(courseSubject);
+                }
+
                 _db.SaveChanges();
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+               return BadRequest(ex);
             }
         }
 

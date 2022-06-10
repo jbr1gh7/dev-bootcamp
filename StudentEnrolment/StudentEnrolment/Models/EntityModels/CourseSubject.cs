@@ -18,5 +18,15 @@ namespace StudentEnrolment.Models
 
         public string SubjectId { get; set; }
         public Subject Subject { get; set; }
+
+        public CourseSubject
+        (
+            string courseId,
+            string subjectId
+        )
+        {
+            this.CourseId = courseId;
+            this.SubjectId = subjectId;
+        }
     }
 }
