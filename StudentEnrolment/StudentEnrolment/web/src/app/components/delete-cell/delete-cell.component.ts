@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IdBase } from 'src/app/models/id-base.model';
+import { IdBase } from 'src/app/models/base-classes/id-base.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';

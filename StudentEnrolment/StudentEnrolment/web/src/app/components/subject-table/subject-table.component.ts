@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { Subject } from 'src/app/models/subject.model';
-import { IdBase } from 'src/app/models/id-base.model';
+import { Subject } from 'src/app/models/entity-models/subject.model';
+import { IdBase } from 'src/app/models/base-classes/id-base.model';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
 

@@ -1,5 +1,5 @@
 import { CourseSubject } from "./course-subject.model";
-import { Curriculum } from "./curriculum.model";
+import { Curriculum } from "../base-classes/curriculum.model";
 
 export class Subject extends Curriculum {
     public courseSubject: CourseSubject[];

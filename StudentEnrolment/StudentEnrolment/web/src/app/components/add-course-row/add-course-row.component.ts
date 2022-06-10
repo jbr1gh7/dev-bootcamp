@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Student } from 'src/app/models/student.model';
-import { Subject } from 'src/app/models/subject.model';
+import { Student } from 'src/app/models/entity-models/student.model';
+import { Subject } from 'src/app/models/entity-models/subject.model';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';

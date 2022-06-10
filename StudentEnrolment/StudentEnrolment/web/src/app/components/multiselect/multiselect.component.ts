@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { Course } from 'src/app/models/course.model';
+import { Course } from 'src/app/models/entity-models/course.model';
 import { EventBusService } from 'src/app/services/event-bus.service';
 
 @Component({

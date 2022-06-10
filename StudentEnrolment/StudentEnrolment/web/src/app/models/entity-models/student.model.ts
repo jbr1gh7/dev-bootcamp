@@ -1,5 +1,5 @@
 import { CourseStudent } from "./course-student.model";
-import { IdBase } from "./id-base.model";
+import { IdBase } from "../id-base.model";
 
 export class Student extends IdBase{
     public firstName: string;

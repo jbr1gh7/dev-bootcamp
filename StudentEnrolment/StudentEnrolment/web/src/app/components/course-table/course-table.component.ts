@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Course } from 'src/app/models/course.model';
+import { Course } from 'src/app/models/entity-models/course.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
 

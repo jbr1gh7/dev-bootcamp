@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IdBase } from '../models/id-base.model';
-import { StudentDto } from '../models/student-dto.model';
-import { Student } from '../models/student.model';
+import { StudentDto } from '../models/dto-models/student-dto.model';
+import { Student } from '../models/entity-models/student.model';
 
 @Injectable({
   providedIn: 'root'

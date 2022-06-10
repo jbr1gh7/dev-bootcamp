@@ -1,6 +1,6 @@
 import { CourseStudent } from "./course-student.model";
 import { CourseSubject } from "./course-subject.model";
-import { Curriculum } from "./curriculum.model";
+import { Curriculum } from "../base-classes/curriculum.model";
 
 export class Course extends Curriculum {
     public isPartFunded: boolean;

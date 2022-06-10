@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IdBase } from 'src/app/models/id-base.model';
-import { CourseStudentDto } from 'src/app/models/course-student-dto.model';
+import { IdBase } from 'src/app/models/base-classes/id-base.model';
+import { CourseStudentDto } from 'src/app/models/dto-models/course-student-dto.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
-import { StudentDto } from 'src/app/models/student-dto.model';
-import { CourseSubjectDto } from 'src/app/models/course-subject-dto.model';
-import { CourseDto } from 'src/app/models/course-dto.model';
-import { SubjectDto } from 'src/app/models/subject-dto.model';
+import { StudentDto } from 'src/app/models/dto-models/student-dto.model';
+import { CourseSubjectDto } from 'src/app/models/dto-models/course-subject-dto.model';
+import { CourseDto } from 'src/app/models/dto-models/course-dto.model';
+import { SubjectDto } from 'src/app/models/dto-models/subject-dto.model';
 
 @Component({
   selector: 'app-table-control',

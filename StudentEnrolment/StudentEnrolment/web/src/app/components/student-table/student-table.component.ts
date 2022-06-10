@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IdBase } from 'src/app/models/id-base.model';
-import { Student } from 'src/app/models/student.model';
+import { Student } from 'src/app/models/entity-models/student.model';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 
