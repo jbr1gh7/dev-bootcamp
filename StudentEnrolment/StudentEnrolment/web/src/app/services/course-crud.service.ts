@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Course } from '../models/entity-models/course.model';
-import { IdBase } from '../models/id-base.model';
+import { IdBase } from '../models/base-classes/id-base.model';
 import { CourseDto } from '../models/dto-models/course-dto.model';
 
 @Injectable({

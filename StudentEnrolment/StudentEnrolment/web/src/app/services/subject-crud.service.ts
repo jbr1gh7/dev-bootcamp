@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IdBase } from '../models/id-base.model';
+import { IdBase } from '../models/base-classes/id-base.model';
 import { SubjectDto } from '../models/dto-models/subject-dto.model';
 import { Subject } from '../models/entity-models/subject.model';
 
