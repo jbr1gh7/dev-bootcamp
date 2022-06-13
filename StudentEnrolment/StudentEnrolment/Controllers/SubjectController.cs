@@ -65,7 +65,7 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Subject/Delete")]
-        public IActionResult Delete([FromBody] List<IdBase> subjects)
+        public IActionResult Delete([FromBody] List<IdBaseDto> subjects)
         {
             if (subjects == null)
                 return BadRequest("subjects is null");
