@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrolment", "StudentEnrolment\StudentEnrolment.csproj", "{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudentEnrolment", "StudentEnrolment\StudentEnrolment.csproj", "{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentEnrolment.Test", "StudentEnrolment.Test\StudentEnrolment.Test.csproj", "{31A7EAED-7E84-4C80-8BE5-D15BA3C19EB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{785BBE8C-66E8-4FA2-B2F4-24776E827EA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31A7EAED-7E84-4C80-8BE5-D15BA3C19EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31A7EAED-7E84-4C80-8BE5-D15BA3C19EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31A7EAED-7E84-4C80-8BE5-D15BA3C19EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31A7EAED-7E84-4C80-8BE5-D15BA3C19EB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
