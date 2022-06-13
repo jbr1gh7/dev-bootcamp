@@ -29,6 +29,9 @@ namespace StudentEnrolment.Controllers
         [HttpPost("Student/Create")]
         public IActionResult Create([FromBody] StudentDto studentDto)
         {
+            if (studentDto == null)
+                return BadRequest("subjects is null");
+
             Guid guid = Guid.NewGuid();
 
             Student student = new Student(
@@ -64,10 +67,10 @@ namespace StudentEnrolment.Controllers
         }
 
         [HttpPost("Student/Delete")]
-        public IActionResult Delete([FromBody] List<IdBase> students)
+        public IActionResult Delete([FromBody] List<IdBaseDto> students)
         {
             if (students == null)
-                return BadRequest("subjects is null");
+                return BadRequest("students is null");
 
             for (int i = 0; i < students.Count; i++)
             {
