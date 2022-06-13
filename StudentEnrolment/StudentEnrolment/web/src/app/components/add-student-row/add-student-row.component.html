@@ -1,0 +1,22 @@
+<td>
+    <textarea 
+        placeholder="Enter first name" 
+        (input)="inputUpdated()"
+        [(ngModel)]="firstName"
+        [ngClass]="this.validation.fieldIsEmpty(this.firstName) ? 'invalid' : 'valid'"
+    ></textarea>
+</td>
+<td>
+    <textarea 
+        placeholder="Enter last name" 
+        (input)="inputUpdated()"
+        [(ngModel)]="lastName"
+        [ngClass]="this.validation.fieldIsEmpty(this.lastName) ? 'invalid' : 'valid'"
+    ></textarea>
+</td>
+<td class="dropdown">
+    <app-multiselect #courseMultiselect></app-multiselect>
+</td>
+<td class="cancel-add-button" (click)="cancelAdd()">
+    ✕
+</td>

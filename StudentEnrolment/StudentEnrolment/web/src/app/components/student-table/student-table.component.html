@@ -1,0 +1,23 @@
+<table>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Courses</th>
+        <th class="delete-column">Delete</th>
+    </tr>
+    <tr app-add-student-row *ngIf="isAdding"></tr>
+    <tr *ngFor="let row of rows">
+        <td>{{row.firstName}}</td>
+        <td>{{row.lastName}}</td>
+        <td>
+            <ul>
+                <li *ngFor="let courseStudent of row.courseStudent">
+                    {{courseStudent.course.name}}
+                </li>
+            </ul>
+        </td>
+        <td class="delete-column">
+            <app-delete-cell [row]="row"></app-delete-cell>
+        </td>
+    </tr>
+</table>

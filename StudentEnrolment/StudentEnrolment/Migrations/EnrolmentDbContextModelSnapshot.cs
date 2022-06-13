@@ -18,7 +18,37 @@ namespace StudentEnrolment.Migrations
                 .HasAnnotation("ProductVersion", "6.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("StudentEnrolment.Models.Course", b =>
+            modelBuilder.Entity("StudentEnrolment.Models.CourseStudent", b =>
+                {
+                    b.Property<string>("CourseId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("StudentId")
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("CourseId", "StudentId");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("CourseStudent");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.CourseSubject", b =>
+                {
+                    b.Property<string>("CourseId")
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("SubjectId")
+                        .HasColumnType("varchar(36)");
+
+                    b.HasKey("CourseId", "SubjectId");
+
+                    b.HasIndex("SubjectId");
+
+                    b.ToTable("CourseSubject");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Course", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(36)");
@@ -39,43 +69,7 @@ namespace StudentEnrolment.Migrations
                     b.ToTable("Course");
                 });
 
-            modelBuilder.Entity("StudentEnrolment.Models.CourseMembership", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("StudentId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CourseMembership");
-                });
-
-            modelBuilder.Entity("StudentEnrolment.Models.CourseSubject", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.Property<string>("SubjectId")
-                        .IsRequired()
-                        .HasColumnType("varchar(36)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CourseSubject");
-                });
-
-            modelBuilder.Entity("StudentEnrolment.Models.Student", b =>
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Student", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(36)");
@@ -93,7 +87,7 @@ namespace StudentEnrolment.Migrations
                     b.ToTable("Student");
                 });
 
-            modelBuilder.Entity("StudentEnrolment.Models.Subject", b =>
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Subject", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("varchar(36)");
@@ -109,6 +103,61 @@ namespace StudentEnrolment.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Subject");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.CourseStudent", b =>
+                {
+                    b.HasOne("StudentEnrolment.Models.EntityModels.Course", "Course")
+                        .WithMany("CourseStudent")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentEnrolment.Models.EntityModels.Student", "Student")
+                        .WithMany("CourseStudent")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Student");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.CourseSubject", b =>
+                {
+                    b.HasOne("StudentEnrolment.Models.EntityModels.Course", "Course")
+                        .WithMany("CourseSubject")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudentEnrolment.Models.EntityModels.Subject", "Subject")
+                        .WithMany("CourseSubject")
+                        .HasForeignKey("SubjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Subject");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Course", b =>
+                {
+                    b.Navigation("CourseStudent");
+
+                    b.Navigation("CourseSubject");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Student", b =>
+                {
+                    b.Navigation("CourseStudent");
+                });
+
+            modelBuilder.Entity("StudentEnrolment.Models.EntityModels.Subject", b =>
+                {
+                    b.Navigation("CourseSubject");
                 });
 #pragma warning restore 612, 618
         }

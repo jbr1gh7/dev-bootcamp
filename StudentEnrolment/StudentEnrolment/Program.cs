@@ -1,8 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var _policyName = "CorsPolicy";
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 builder.Services.AddCors(opt =>
 {

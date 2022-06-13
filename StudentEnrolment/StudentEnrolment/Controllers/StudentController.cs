@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using StudentEnrolment.Data;
 using StudentEnrolment.Models;
+using StudentEnrolment.Models.BaseClasses;
+using StudentEnrolment.Models.DTOModels;
+using StudentEnrolment.Models.EntityModels;
 
 namespace StudentEnrolment.Controllers
 {
@@ -16,43 +19,81 @@ namespace StudentEnrolment.Controllers
         [HttpGet("Student/List")]
         public List<Student> List()
         {
-            List<Student> itemList = _db.Student.ToList();
+            List<Student> itemList = _db.Student
+                                    .Include(c => c.CourseStudent)
+                                    .ThenInclude(cs => cs.Course)
+                                    .ToList();
             return itemList;
         }
 
         [HttpPost("Student/Create")]
-        public IActionResult Create([FromBody] Student student)
+        public IActionResult Create([FromBody] StudentDto studentDto)
         {
+            if (studentDto == null)
+                return BadRequest();
+        
+
+            Guid guid = Guid.NewGuid();
+
+            Student student = new Student(
+                guid.ToString(),
+                studentDto.FirstName,
+                studentDto.LastName
+            );
+
             try
             {
                 _db.Student.Add(student);
+                
+                for (var i = 0; i < studentDto.Courses.Count; i++)
+                {
+                    studentDto.Courses[i].StudentId = guid.ToString();
+
+                    CourseStudent courseStudent = 
+                        new CourseStudent(
+                            studentDto.Courses[i].CourseId,
+                            studentDto.Courses[i].StudentId
+                        );
+
+                    _db.CourseStudent.Add(courseStudent);
+                }
+                
                 _db.SaveChanges();
                 return Ok();
             }
             catch (Exception ex)
             {
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
         [HttpPost("Student/Delete")]
-        public IActionResult Delete([FromBody] IdBase student)
+        public IActionResult Delete([FromBody] List<IdBase> students)
         {
-            Student foundStudent = _db.Student.FirstOrDefault(x => x.Id == student.Id);
-            if (foundStudent != null)
+            if (students == null)
+                return BadRequest("subjects is null");
+
+            for (int i = 0; i < students.Count; i++)
             {
-                try
+                Student foundStudent = _db.Student.FirstOrDefault(s => s.Id == students[i].Id);
+                if (foundStudent != null)
                 {
-                    _db.Student.Remove(foundStudent);
-                    _db.SaveChanges();
-                    return Ok();
+                    try
+                    {
+                        _db.Student.Remove(foundStudent);
+                    }
+                    catch (Exception ex)
+                    {
+                        return BadRequest(ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    return BadRequest(ex);
+                    return BadRequest("Id not found");
                 }
             }
-            return BadRequest();
+            _db.SaveChanges();
+            return Ok();
         }
     }
 }
