@@ -57,3 +57,11 @@ textarea {
 .cancel-add-button:hover {
     cursor: pointer;
 }
+
+.invalid {
+    border: 1px solid red;
+}
+
+.valid {
+    border: 1px solid green;
+}

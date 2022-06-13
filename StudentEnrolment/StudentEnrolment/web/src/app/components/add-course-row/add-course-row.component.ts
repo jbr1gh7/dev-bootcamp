@@ -4,6 +4,7 @@ import { Subject } from 'src/app/models/entity-models/subject.model';
 import { EventBusService } from 'src/app/services/event-bus.service';
 import { StudentCrudService } from 'src/app/services/student-crud.service';
 import { SubjectCrudService } from 'src/app/services/subject-crud.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: '[app-add-course-row]',
@@ -20,7 +21,8 @@ export class AddCourseRowComponent implements OnInit {
   constructor(
     private eventBus: EventBusService,
     private subjectCrud: SubjectCrudService,
-    private studentCrud: StudentCrudService
+    private studentCrud: StudentCrudService,
+    public validation: ValidationService
   ) 
   { }
 
@@ -48,18 +50,32 @@ export class AddCourseRowComponent implements OnInit {
     )
   }
 
-  cancelAdd() {
+  cancelAdd(): void {
     this.eventBus.showHideRow(false);
   }
 
-  inputUpdated() {
+  inputUpdated(): void {
     console.log(this.name + ' ' + this.description + ' ' + this.isPartFunded);
-    this.eventBus.passInput(
-      {
-        name: this.name,
-        description: this.description,
-        isPartFunded: this.isPartFunded
-      }
-    )
+    if (!this.validation.fieldIsEmpty(this.name) && 
+        !this.validation.fieldIsEmpty(this.description) 
+      ) 
+    {
+      this.eventBus.passInput(
+        {
+          name: this.name,
+          description: this.description,
+          isPartFunded: this.isPartFunded
+        }
+      )
+    }
+    else {
+      this.eventBus.passInput(
+        {
+          name: undefined,
+          description: undefined,
+          isPartFunded: undefined,
+        }
+      )
+    }
   }
 }

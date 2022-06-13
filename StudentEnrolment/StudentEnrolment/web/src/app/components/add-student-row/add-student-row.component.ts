@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Course } from 'src/app/models/entity-models/course.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: '[app-add-student-row]',
@@ -16,7 +17,8 @@ export class AddStudentRowComponent implements OnInit {
 
   constructor(
     private eventBus: EventBusService,
-    private courseCrud: CourseCrudService
+    private courseCrud: CourseCrudService,
+    public validation: ValidationService
   ) 
   { }
 
@@ -34,17 +36,32 @@ export class AddStudentRowComponent implements OnInit {
     )
   }
 
-  cancelAdd() {
+  cancelAdd(): void {
     this.eventBus.showHideRow(false);
   }
 
-  inputUpdated() {
+  inputUpdated(): void {
     console.log(this.firstName + ' ' + this.lastName);
-    this.eventBus.passInput(
-      {
-        firstName: this.firstName,
-        lastName: this.lastName
-      }
-    )
+    if (!this.validation.fieldIsEmpty(this.firstName) && 
+        !this.validation.fieldIsEmpty(this.lastName) &&
+        !this.validation.fieldContainsDigits(this.firstName) &&
+        !this.validation.fieldContainsDigits(this.lastName)
+      )
+    {
+      this.eventBus.passInput(
+        {
+          firstName: this.firstName,
+          lastName: this.lastName
+        }
+      )
+    }
+    else {
+      this.eventBus.passInput(
+        {
+          firstName: undefined,
+          lastName: undefined
+        }
+      )
+    }
   }
 }
