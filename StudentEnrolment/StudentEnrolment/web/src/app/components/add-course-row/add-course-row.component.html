@@ -2,12 +2,14 @@
     <textarea placeholder="Enter name"
         (input)="inputUpdated()"
         [(ngModel)]="name"
+        [ngClass]="this.validation.fieldIsEmpty(this.name) || this.validation.fieldContainsDigits(this.name) ? 'invalid' : 'valid'"
     ></textarea>
 </td>
 <td>
     <textarea placeholder="Enter description"
         (input)="inputUpdated()"
         [(ngModel)]="description"
+        [ngClass]="this.validation.fieldIsEmpty(this.description) || this.validation.fieldContainsDigits(this.description) ? 'invalid' : 'valid'"
     ></textarea>
 </td>
 <td>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Course } from 'src/app/models/entity-models/course.model';
 import { CourseCrudService } from 'src/app/services/course-crud.service';
 import { EventBusService } from 'src/app/services/event-bus.service';
+import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({
   selector: '[app-add-subject-row]',
@@ -16,7 +17,8 @@ export class AddSubjectRowComponent implements OnInit {
 
   constructor(
     private eventBus: EventBusService,
-    private courseCrud: CourseCrudService
+    private courseCrud: CourseCrudService,
+    public validation: ValidationService
   ) 
   { }
 
@@ -40,12 +42,25 @@ export class AddSubjectRowComponent implements OnInit {
 
   inputUpdated() {
     console.log(this.name + ' ' + this.description);
-    this.eventBus.passInput(
-      {
-        name: this.name,
-        description: this.description
-      }
-    )
+    if (!this.validation.fieldIsEmpty(this.name) && 
+        !this.validation.fieldIsEmpty(this.description)
+      ) 
+    {
+      this.eventBus.passInput(
+        {
+          name: this.name,
+          description: this.description,
+        }
+      )
+    }
+    else {
+      this.eventBus.passInput(
+        {
+          name: undefined,
+          description: undefined,
+        }
+      )
+    }
   }
 }
 

@@ -3,6 +3,7 @@
         placeholder="Enter first name" 
         (input)="inputUpdated()"
         [(ngModel)]="firstName"
+        [ngClass]="this.validation.fieldIsEmpty(this.firstName) ? 'invalid' : 'valid'"
     ></textarea>
 </td>
 <td>
@@ -10,6 +11,7 @@
         placeholder="Enter last name" 
         (input)="inputUpdated()"
         [(ngModel)]="lastName"
+        [ngClass]="this.validation.fieldIsEmpty(this.lastName) ? 'invalid' : 'valid'"
     ></textarea>
 </td>
 <td class="dropdown">

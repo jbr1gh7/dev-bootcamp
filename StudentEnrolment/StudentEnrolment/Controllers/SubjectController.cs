@@ -30,6 +30,9 @@ namespace StudentEnrolment.Controllers
         [HttpPost("Subject/Create")]
         public IActionResult Create([FromBody] SubjectDto subjectDto)
         {
+            if (subjectDto == null)
+                return BadRequest();
+
             Guid guid = Guid.NewGuid();
 
             Subject subject = new Subject(

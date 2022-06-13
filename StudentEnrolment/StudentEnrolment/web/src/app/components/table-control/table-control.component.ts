@@ -155,6 +155,17 @@ export class TableControlComponent implements OnInit {
     );
   }
 
+  isInputUndefined(input: any): boolean {
+    let result = false;
+    Object.values(input).forEach(val => {
+      if (typeof val == 'undefined') {
+        result = true;
+      }
+    });
+
+    return result;
+  }
+
   saveAdd(): void {
     switch(this.router.url) {
       case '/Students':
@@ -202,7 +213,7 @@ export class TableControlComponent implements OnInit {
 
   save(): void {
     this.saveDelete();
-    if (this.isAdding)
+    if (this.isAdding && !this.isInputUndefined(this.inputObject))
     {
       this.saveAdd();
     }
