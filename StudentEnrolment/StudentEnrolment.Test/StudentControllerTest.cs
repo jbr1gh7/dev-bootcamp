@@ -64,7 +64,7 @@ namespace StudentEnrolment.Test
                 "Bean"
             );
 
-            _db.AddRange(newStudent1, newStudent2);
+            _db.Student.AddRange(newStudent1, newStudent2);
             _db.SaveChanges();
 
             List<IdBaseDto> ids = new List<IdBaseDto>();
